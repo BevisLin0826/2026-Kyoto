@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>京都孝親・導航助理 V7.0</title>
+    <title>京都孝親・導航助理 V8.0</title>
     <style>
         :root {
             --primary: #FF6B6B; --primary-light: #FF8E8E;
@@ -48,9 +48,9 @@
         }
 
         /* --- 快捷工具 --- */
-        .tool-bar { display: flex; justify-content: space-around; padding: 0 15px 20px; gap: 10px; }
+        .tool-bar { display: flex; flex-wrap: wrap; justify-content: space-around; padding: 0 15px 20px; gap: 10px; }
         .tool-btn {
-            flex: 1; padding: 12px; border-radius: 15px; border: none;
+            flex: 1 1 45%; padding: 12px; border-radius: 15px; border: none;
             background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             font-size: 13px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 6px;
         }
@@ -152,6 +152,58 @@
             <p><strong>飯店電話：</strong><br>075-353-0031</p>
         </div>
     </div>
+
+    <div id="shopping-modal" class="modal">
+    <span class="close-x" onclick="hideModal('shopping')">✕</span>
+    <h2 style="color:var(--transit); margin-bottom: 25px;">🛍️ 任務清單 & 最佳時機</h2>
+    
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
+        <p><strong>👟 功能性運動鞋 (重點任務)</strong></p>
+        <p style="font-size:13px; color:#666;">時機：Day 3 大阪梅田 (LUCUA / Grand Front)</p>
+        <ul style="font-size:14px; padding-left:20px;">
+            <li>New Balance (9060 涼鞋)</li>
+            <li>HOKA (ORA PRIMO)</li>
+            <li>On (Cloudsurfer Max)</li>
+        </ul>
+        <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
+    </div>
+        
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
+        <p><strong>👗 生活雜貨</strong></p>
+        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 3 心齋橋</p>
+        <ul style="font-size:14px; padding-left:20px;">
+            <li>3Coins </li>
+            <li>無印良品 (網布筆筒/精華液)</li>
+            <li>Standard Product</li>
+        </ul>
+	<button class="map-btn" onclick="openMap('3Coins')">🗺️ 導航至 3Coins</button>
+	<button class="map-btn" onclick="openMap('無印良品')">🗺️ 導航至 Muji</button>
+	<button class="map-btn" onclick="openMap('StandardProduct')">🗺️ 導航至 StandardProduct</button>
+    </div>
+        
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #f39c12;">
+        <p><strong>💊 藥妝與常備藥</strong></p>
+        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 3 心齋橋</p>
+        <ul style="font-size:14px; padding-left:20px;">
+            <li>Wakamoto 若元錠</li>
+            <li>休足時間 (今晚就能用！)</li>
+            <li>合利他命 EX Plus</li>
+        </ul>
+        <button class="map-btn" onclick="openMap('心齋橋')">🗺️ 導航至 心齋橋</button>
+        <button class="map-btn" onclick="openMap('新京極商店街')">🗺️ 導航至新京極</button>
+    </div>
+
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
+        <p><strong>🍵 必買伴手禮</strong></p>
+        <p style="font-size:13px; color:#666;">時機：Day 5 京都車站 Porta</p>
+        <ul style="font-size:14px; padding-left:20px;">
+            <li>阿闍梨餅 (軟Q紅豆餡)</li>
+            <li>MALEBRANCHE 茶之菓 (抹茶巧克力)</li>
+            <li>小倉山莊 (仙貝)</li>
+        </ul>
+        <button class="map-btn" onclick="openMap('京都駅 Porta')">🗺️ 導航至京都駅 Porta</button>
+    </div>
+</div>
 
     <div id="sos-modal" class="modal">
         <span class="close-x" onclick="hideModal('sos')">✕</span>
