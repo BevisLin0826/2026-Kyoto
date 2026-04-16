@@ -120,6 +120,7 @@
         <button class="tool-btn" onclick="showModal('entry')">📄 入境參考</button>
 		<button class="tool-btn" onclick="showModal('shopping')">🛍️ 購物清單</button>
         <button class="tool-btn" onclick="showModal('sos')" style="color:#E63946">🆘 SOS 救助</button>
+	<button class="tool-btn" onclick="showModal('pokemon')" style="background:#fff0f6; border:1px solid #ff9ff3;">⚡ 寶可夢中心</button>
     </div>
 
     <div id="dayTitleContainer"></div>
@@ -217,6 +218,37 @@
         <button class="map-btn" onclick="openMap('京都駅 Porta')">🗺️ 導航至京都駅 Porta</button>
     </div>
 </div>
+
+<div id="pokemon-modal" class="modal">
+        <span class="close-x" onclick="hideModal('pokemon')">✕</span>
+        <h2 style="color:#e63946; margin-bottom: 25px;">⚡ 寶可夢中心快速導航</h2>
+        <div class="sos-grid">
+       	
+	     <div class="card" style="border-left: 5px solid #ffcb05;">
+                <p><strong>【京都店】Pokémon Center Osaka</strong><br>
+                <small>地點：SUINA室町 2F</small></p>
+                <p style="font-size:12px; color:#666;">適合當前：錦市場巡禮時同步前往。</p>
+                <button class="map-btn" onclick="openMap('ポケモンセンターキョウト')">📍 開啟京都店導航</button>
+            </div>
+                 
+	     <div class="card" style="border-left: 5px solid #003a70;">
+                <p><strong>【梅田店】Pokémon Center Osaka</strong><br>
+                <small>地點：大丸梅田店 13F</small></p>
+                <p style="font-size:12px; color:#666;">適合當前：梅田購鞋行程中同步前往。</p>
+                <button class="map-btn" onclick="openMap('Pokémon Center Osaka')">📍 開啟梅田店導航</button>
+            </div>
+            
+            <div class="card" style="border-left: 5px solid #ffcb05;">
+                <p><strong>【心齋橋店】Pokémon Center DX</strong><br>
+                <small>地點：大丸心齋橋本館 9F</small></p>
+                <p style="font-size:12px; color:#666;">適合當前：道頓堀散策後，步行可達。</p>
+                <button class="map-btn" onclick="openMap('Pokémon Center DX')">📍 開啟心齋橋店導航</button>
+            </div>
+        </div>
+        <div class="guide-box" style="margin-top:20px;">
+            💡 <strong>達人提醒：</strong> 5/10 (週日) 人潮眾多，若需購買熱門商品建議一進百貨先去領取號碼牌。
+        </div>
+    </div>
 
     <div id="sos-modal" class="modal">
         <span class="close-x" onclick="hideModal('sos')">✕</span>
@@ -324,38 +356,88 @@
                 ]
             },
             3: {
-                title: "大三角巡禮：大佛、市場與購鞋",
+                title: "大阪深度遊：下町風情與都會繁華",
                 nodes: [
-                    { time: "08:00", title: "飯店出發", stay: "N/A", guide: "今日跨越京都、奈良、大阪三城。體驗古都與大都會。" },
+                    { 
+                        time: "09:00", 
+                        title: "飯店出發 (sequence KYOTO GOJO)", 
+                        addr: "sequence KYOTO GOJO", 
+                        stay: "N/A", 
+                        guide: "【起點】清點隨身物品，準備前往大阪。" 
+                    },
                     {
                         trans: [
-                            { type: "🚆", text: "<b>近鐵特急 (京都->奈良)</b><br>車程 35min，約 1,200円。", addr: "近鉄奈良駅" }
+                            { type: "🚕", text: "<b>飯店 -> 京都車站 (推薦)</b><br>搭乘計程車 (8min, 約 1,000円)。<br>最省力方案，直接載到近鐵或 JR 入口。", addr: "京都駅" },
+                            { type: "🚇", text: "<b>地鐵烏丸線</b><br>五條 -> 京都 (2min, 220円)。需步行進出站約 10min。", addr: "京都駅" }
                         ]
                     },
-                    { time: "09:30", title: "奈良公園 / 東大寺", addr: "奈良市雑司町406-1", stay: "2.5hr", guide: "【重點】世界最大木造建築。餵鹿請注意長輩安全。" },
+                    { 
+                        time: "09:30", 
+                        title: "跨城移動：京都 ➔ 大阪通天閣", 
+                        guide: "請根據當下位置選擇以下大眾交通方案：" 
+                    },
                     {
                         trans: [
-                            { type: "🚆", text: "<b>近鐵快速急行 (奈良->大阪)</b><br>40min 抵達日本橋站。", addr: "近鉄日本橋駅" }
+                            { 
+                                type: "🚆", 
+                                text: "<b>1. JR 線特快 (最快方案)</b><br>路徑：京都站 (JR 新快速) -> 大阪站 (轉地鐵御堂筋線) -> 動物園前站。<br>時間：約 65 min。<br>特色：車次極多，速度最快。", 
+                                addr: "動物園前駅" 
+                            },
+                            { 
+                                type: "🚃", 
+                                text: "<b>2. 京阪電車 (景觀方案)</b><br>路徑：清水五條站 -> 北濱站 (轉地鐵堺筋線) -> 惠美須町站。<br>時間：約 75 min。<br>特色：車站離飯店步行 12min 可達，車廂較寬敞舒適。", 
+                                addr: "恵美須町駅" 
+                            },
+                            { 
+                                type: "🚕", 
+                                text: "<b>3. 計程車 (懶人方案)</b><br>若抵達 JR 大阪站後不想擠地鐵，直接搭計程車 (15min, 2,500円) 到通天閣門口。", 
+                                addr: "通天閣" 
+                            }
                         ]
                     },
-                    { time: "12:30", title: "黑門市場午餐", addr: "大阪市中央区日本橋", stay: "1.5hr", guide: "【大阪廚房】現點現做。推薦炭烤帆立貝、和牛串燒。" },
+                    { time: "10:30", title: "通天閣 / 新世界", addr: "大阪市浪速区恵美須東", stay: "1.5hr", guide: "【地標】昭和風情招牌街。可挑戰展望台或溜滑梯。<br>重點：拍攝巨大的河豚招牌與通天閣合影。" },
                     {
                         trans: [
-                            { type: "🚶", text: "<b>步行</b> 心齋橋/道頓堀散策。", addr: "固力果看板" }
+                            { type: "🚕", text: "<b>計程車 (短程)</b><br>直達黑門市場入口 (5min, 1,000円)。", addr: "黒門市場" }
                         ]
                     },
-                    { time: "14:30", title: "心齋橋 / 固力果看板", stay: "1.5hr", guide: "【拍照】跑跑人合影。藥妝店採購好時機。" },
+                    { time: "12:30", title: "黑門市場午餐 (三選一)", isDining: true, options: [
+                        { name: "黑門三平", info: "現剖海鮮與海膽名店。", dish: "現烤大干貝 / 鮪魚腹肉。", addr: "黒門三平" },
+                        { name: "萬野總本店", info: "精肉店直營和牛燒烤。", dish: "黑毛和牛代客現煎。", addr: "萬野総本店" },
+                        { name: "石橋食品", info: "40年老字號關東煮。", dish: "軟爛入味大蘿蔔 (長輩小孩首選)。", addr: "石橋食品" }
+                    ]},
                     {
                         trans: [
-                            { type: "🚇", text: "<b>地鐵御堂筋線 (難波->梅田)</b>", addr: "梅田站" }
+                            { type: "🚶", text: "<b>步行</b> 往道頓堀/心齋橋約 10min。", addr: "固力果看板" }
                         ]
                     },
-                    { time: "16:30", title: "梅田購鞋任務", addr: "大阪市北区梅田", stay: "2.5hr", guide: "【購鞋】大丸/阪急百貨。找 New Balance 或 HOKA。退稅便利。" },
-                    { time: "19:00", title: "晚餐三選一 (梅田)", isDining: true, options: [
-                        { name: "利久牛舌", info: "炭火燒烤牛舌。", dish: "牛舌極定食。", addr: "大丸梅田 14F" },
-                        { name: "備長 鰻魚飯", info: "名古屋流派。", dish: "鰻魚三吃。", addr: "Grand Front" },
-                        { name: "尾張屋", info: "蕎麥麵老鋪。", dish: "蕎麥定食。", addr: "阪急梅田" }
-                    ]}
+                    { time: "14:30", title: "道頓堀 / 心齋橋購物", stay: "2hr", guide: "【重點】固力果看板合影。商店街內有 3Coins 與藥妝。<br><b>購鞋提醒：</b> 這裡有大型 ABC-MART 可先偵查 HOKA/NB 鞋款。" },
+                    {
+                        trans: [
+                            { type: "🚇", text: "<b>地鐵御堂筋線</b> (心齋橋 -> 梅田) 6min。", addr: "梅田站" }
+                        ]
+                    },
+
+                    { 
+                        special: "pokemon", // 標記為寶可夢特別節點
+                        time: "15:30", title: "⚡ 寶可夢中心巡禮", guide: "心齋橋店則在大丸 9F。" 
+                    },
+
+                    { time: "16:30", title: "梅田購鞋任務", addr: "大阪市北区梅田", stay: "2.5hr", guide: "【最終採買】大丸/LUCUA 百貨。購買 New Balance 或 HOKA 專櫃鞋。此處退稅環境最舒適。" },
+                    { 
+                        special: "pokemon", // 標記為寶可夢特別節點
+                        time: "17:30", title: "⚡ 寶可夢中心巡禮", guide: "梅田店位於大丸 13F。" 
+                    },
+                    { time: "19:00", title: "梅田晚餐 (三選一)", isDining: true, options: [
+                        { name: "備長 鰻魚飯", info: "名古屋流派炭烤。<br>鰻魚飯7F; TNF 5F。", dish: "鰻魚三吃 (一鰻三味)。", addr: "ひつまぶし備長 グランフロント大阪" },
+                        { name: "利久牛舌", info: "仙台經典厚切牛舌。", dish: "牛舌極定食配牛尾湯。", addr: "牛たん炭焼 利久 大丸梅田店" },
+                        { name: "北極星蛋包飯", info: "蛋包飯始祖，口味溫和。", dish: "經典雞肉蛋包飯 (小孩最愛)。", addr: "北極星 大丸梅田店" }
+                    ]},
+                    {
+                        trans: [
+                            { type: "🚆", text: "<b>JR 新快速 (回程)</b><br>大阪站 -> 京都站。<br>時間：約 35 min。", addr: "京都駅" }
+                        ]
+                    }
                 ]
             },
             4: {
@@ -430,48 +512,63 @@
             let html = ``;
             
             tripData[day].nodes.forEach(n => {
-                if(n.trans) {
-                    html += `<div class="trans-divider">
-                        <div class="trans-card">
-                            ${n.trans.map(t => `
-                                <div class="trans-row">
-                                    <div class="trans-icon">${t.type}</div>
-                                    <div class="trans-text">
-                                        ${t.text}
-                                        <br><button class="map-btn" onclick="openMap('${t.addr}')">🗺️ 地圖導航</button>
-                                    </div>
-                                </div>
-                            `).join('')}
+    if (n.trans) {
+        // 1. 處理交通節點
+        html += `<div class="trans-divider">
+            <div class="trans-card">
+                ${n.trans.map(t => `
+                    <div class="trans-row">
+                        <div class="trans-icon">${t.type}</div>
+                        <div class="trans-text">
+                            ${t.text}
+                            <br><button class="map-btn" onclick="openMap('${t.addr}')">🗺️ 地圖導航</button>
                         </div>
-                    </div>`;
-                } else if(n.isDining) {
-                    html += `
-                    <div class="timeline-node">
-                        <div class="node-dot" style="border-color:var(--secondary);"></div>
-                        <span class="node-time">🍴 餐廳三選一 (附近)</span>
-                        <div class="dining-wrap">
-                            ${n.options.map(o => `
-                                <div class="dining-card" onclick="copy('${o.addr}')">
-                                    <strong>${o.name}</strong><br><small>${o.info}</small>
-                                    <br><button class="map-btn" onclick="openMap('${o.addr}')">🗺️ 地圖導航</button>
-                                    <div class="menu-pill">✨ ${o.dish}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>`;
-                } else {
-                    html += `
-                    <div class="timeline-node">
-                        <div class="node-dot"></div>
-                        <span class="node-time">${n.time} <span class="node-stay">⏱️ ${n.stay}</span></span>
-                        <div class="card" onclick="copy('${n.addr || ''}')">
-                            <div class="node-title">${n.title} ${n.addr ? '📋' : ''}</div>
-                            <div class="guide-box">${n.guide}</div>
-                            ${n.addr ? `<button class="map-btn" onclick="openMap('${n.addr}')">🗺️ 地圖導航</button>` : ''}
-                        </div>
-                    </div>`;
-                }
-            });
+                    </div>
+                `).join('')}
+            </div>
+        </div>`;
+    } else if (n.special === "pokemon") {
+        // 2. 處理寶可夢特別節點 (必須放在一般 else 之前)
+        html += `
+        <div class="timeline-node">
+            <div class="node-dot" style="border-color:#ffcb05; background:#ffcb05;"></div>
+            <span class="node-time">${n.time}</span>
+            <div class="card" style="background: linear-gradient(135deg, #fff9db, #fff);">
+                <div class="node-title">${n.title}</div>
+                <div class="guide-box">${n.guide}</div>
+                <button class="tool-btn" style="width:100%" onclick="showModal('pokemon')">🎮 打開寶可夢專屬導航卡</button>
+            </div>
+        </div>`;
+    } else if (n.isDining) {
+        // 3. 處理餐廳三選一
+        html += `
+        <div class="timeline-node">
+            <div class="node-dot" style="border-color:var(--secondary);"></div>
+            <span class="node-time">🍴 餐廳三選一 (附近)</span>
+            <div class="dining-wrap">
+                ${n.options.map(o => `
+                    <div class="dining-card" onclick="copy('${o.addr}')">
+                        <strong>${o.name}</strong><br><small>${o.info}</small>
+                        <br><button class="map-btn" onclick="openMap('${o.addr}')">🗺️ 地圖導航</button>
+                        <div class="menu-pill">✨ ${o.dish}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>`;
+    } else {
+        // 4. 最後才是處理一般節點
+        html += `
+        <div class="timeline-node">
+            <div class="node-dot"></div>
+            <span class="node-time">${n.time} <span class="node-stay">⏱️ ${n.stay}</span></span>
+            <div class="card" onclick="copy('${n.addr || ''}')">
+                <div class="node-title">${n.title} ${n.addr ? '📋' : ''}</div>
+                <div class="guide-box">${n.guide}</div>
+                ${n.addr ? `<button class="map-btn" onclick="openMap('${n.addr}')">🗺️ 地圖導航</button>` : ''}
+            </div>
+        </div>`;
+    }
+});
 
             // 歸巢節點
             if(day < 5) {
