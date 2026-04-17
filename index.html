@@ -272,6 +272,7 @@
     <div id="toast">已複製</div>
 
     <script>
+	let currentDay = 1; // 確保系統知道現在是哪一天
         const tripData = {
             1: {
                 title: "初探古都：生活氣息與夜晚神域",
@@ -500,6 +501,7 @@
         };
 
         function render(day) {
+	currentDay = day;
             // 更新按鈕樣式
             const btns = document.querySelectorAll('.day-nav button');
             btns.forEach((b, i) => b.className = (i+1 === day ? 'active' : ''));
@@ -604,6 +606,88 @@
 
         function showModal(id) { document.getElementById(id + '-modal').style.display = 'block'; }
         function hideModal(id) { document.getElementById(id + '-modal').style.display = 'none'; }
+
+	// --- 左右滑動切換天數核心引擎 ---
+let touchstartX = 0;
+let touchendX = 0;
+const swipeThreshold = 80; // 滑動超過 80 像素才觸發切換
+
+// 1. 紀錄手指碰觸螢幕的起點
+document.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+// 2. 紀錄手指離開螢幕的終點，並計算位移
+document.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX;
+    handleSwipe(e);
+}, { passive: true });
+
+// 3. 判定滑動方向
+function handleSwipe(e) {
+    // 【重要】排除正在滑動「餐廳卡片」或「導覽列」時的誤觸
+    const isScrollingContent = e.target.closest('.day-nav, .dining-wrap');
+    if (isScrollingContent) return;
+
+    const deltaX = touchendX - touchstartX;
+
+    // 向左滑 (下一天)
+    if (deltaX < -swipeThreshold && currentDay < 5) {
+        const nextDay = currentDay + 1;
+        render(nextDay);
+        showSwipeToast(`切換至 Day ${nextDay}`);
+    } 
+    // 向右滑 (前一天)
+    else if (deltaX > swipeThreshold && currentDay > 1) {
+        const prevDay = currentDay - 1;
+        render(prevDay);
+        showSwipeToast(`回到 Day ${prevDay}`);
+    }
+}
+
+// 4. 滑動成功的小提示
+function showSwipeToast(msg) {
+    const toast = document.getElementById('toast');
+    if (toast) {
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 1000);
+    }
+}
+
+// --- 向下滑動關閉工具列頁面 (Swipe Down to Close Modal) ---
+let modalStartY = 0;
+
+document.querySelectorAll('.modal').forEach(modal => {
+    // 1. 紀錄起點高度
+    modal.addEventListener('touchstart', e => {
+        modalStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    // 2. 判定滑動位移
+    modal.addEventListener('touchend', e => {
+        const modalEndY = e.changedTouches[0].clientY;
+        const diffY = modalEndY - modalStartY; // 終點減起點：正值代表「向下」
+
+        // 門檻值設定為 100px (向下滑動超過 100px 則觸發)
+        if (diffY > 100) {
+            const modalId = modal.id.replace('-modal', '');
+            
+            // 執行向下滑動消失的動畫
+            modal.style.transition = "transform 0.3s ease-in, opacity 0.3s";
+            modal.style.transform = "translateY(100%)"; // 向下移出螢幕
+            modal.style.opacity = "0";
+
+            setTimeout(() => {
+                hideModal(modalId);
+                // 隱藏後重置樣式，確保下次開啟時能正確從底部彈回（或直接出現）
+                modal.style.transform = "translateY(0)";
+                modal.style.opacity = "1";
+                modal.style.transition = "none";
+            }, 300);
+        }
+    }, { passive: true });
+});
 
         render(1);
     </script>
