@@ -588,6 +588,58 @@
 
             container.innerHTML = html;
             window.scrollTo(0,0);
+		// --- Step 2: 自動定位當前時間行程 (加入防錯機制) ---
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth() + 1;
+            const currentDate = now.getDate();
+            
+            // 判定「今天」是否真的在旅遊期間內 (2026/5/8 ~ 2026/5/12)
+            const isActualTravelPeriod = (currentYear === 2026 && currentMonth === 5 && currentDate >= 8 && currentDate <= 12);
+		//const isActualTravelPeriod = (currentYear === 2026 && currentMonth === 4);
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const currentTimeVal = currentHour * 60 + currentMin;
+
+            let closestNode = null;
+            let minDiff = Infinity;
+
+            // 只有在旅遊期間，才需要尋找最近的節點
+            if (isActualTravelPeriod) {
+                document.querySelectorAll('.timeline-node').forEach(node => {
+                    const timeText = node.querySelector('.node-time')?.innerText;
+                    if (timeText && timeText.includes(':')) {
+                        const timeMatch = timeText.match(/(\d{1,2}):(\d{2})/);
+                        if (timeMatch) {
+                            const h = parseInt(timeMatch[1]);
+                            const m = parseInt(timeMatch[2]);
+                            const nodeTimeVal = h * 60 + m;
+                            const diff = Math.abs(currentTimeVal - nodeTimeVal);
+
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                closestNode = node;
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 修正後的判斷：必須是「旅遊期間」且「顯示的天數等於今天的天數」才捲動與標記
+            if (isActualTravelPeriod && closestNode && day === getSmartDay()) {
+                setTimeout(() => {
+                    closestNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const card = closestNode.querySelector('.card');
+                    if (card) {
+                        card.style.transition = "all 0.5s";
+                        card.style.border = "2px solid var(--primary)";
+                        card.style.boxShadow = "0 0 15px rgba(255, 107, 107, 0.3)";
+                    }
+                }, 600);
+            } else {
+                // 如果不是旅遊期間，或是查看其他天的行程，強制停留在最上方
+                window.scrollTo(0, 0);
+            }
         }
 
         function copy(t) {
@@ -689,7 +741,28 @@ document.querySelectorAll('.modal').forEach(modal => {
     }, { passive: true });
 });
 
-        render(1);
+        // --- 智慧日期偵測引擎 ---
+	function getSmartDay() {
+    		const now = new Date();
+    		const month = now.getMonth() + 1;
+    		const date = now.getDate();
+    		const year = now.getFullYear();
+
+    // 您的旅程設定在 2026 年 5 月
+    if (year === 2026 && month === 5) {
+        if (date <= 8) return 1;  // 5/8 以前都顯示 Day 1
+        if (date === 9) return 2;
+        if (date === 10) return 3;
+        if (date === 11) return 4;
+        if (date >= 12) return 5; // 5/12 以後顯示 Day 5
+    }
+    return 1; // 非旅程期間預設顯示 Day 1
+}
+
+	// 替換原本的 render(1)，改為自動偵測
+	const targetDay = getSmartDay();
+	render(targetDay);
+
     </script>
 </body>
 </html>
