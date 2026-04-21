@@ -118,7 +118,8 @@
     <div class="tool-bar">
         <button class="tool-btn" onclick="showModal('diet')">🚫 飲食禁忌</button>
         <button class="tool-btn" onclick="showModal('entry')">📄 入境參考</button>
-		<button class="tool-btn" onclick="showModal('shopping')">🛍️ 購物清單</button>
+	<button class="tool-btn" onclick="showModal('shopping')">🛍️ 購物清單</button>	
+	<button class="tool-btn" onclick="showModal('food')" style="background:#fff9db;">🍱 美食地圖</button>
         <button class="tool-btn" onclick="showModal('sos')" style="color:#E63946">🆘 SOS 救助</button>
 	<button class="tool-btn" onclick="showModal('pokemon')" style="background:#fff0f6; border:1px solid #ff9ff3;">⚡ 寶可夢中心</button>
     </div>
@@ -143,6 +144,20 @@
             <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
         </div>
     </div>
+
+    <div id="food-modal" class="modal">
+    	<span class="close-x" onclick="hideModal('food')">✕</span>
+    	<h2 style="color:#d35400;">🍱 關西美食總覽</h2>
+    	<p style="font-size: 13px; color: #666; margin-bottom: 20px;">包含行程推薦與口袋收藏名單</p>
+    
+    	<div id="foodListContainer">
+    </div>
+    
+    <div class="guide-box" style="margin-top:20px; background:#fff5f5;">
+        💡 <b>小撇步：</b> 建議熱門餐廳（如備長鰻魚飯）提前 30 分鐘去現場取號。
+    </div>
+</div>
+
 
     <div id="entry-modal" class="modal">
         <span class="close-x" onclick="hideModal('entry')">✕</span>
@@ -169,8 +184,20 @@
             <li>On (Cloudsurfer Max)</li>
         </ul>
         <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
+	<button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
     </div>
-        
+
+	<div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
+            </p><div class="shop-tag" style="background:#fff0f6; color:#e64980;">✨ IP 泡澡球 & 驚喜禮物</div></p>
+            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 3 梅田 Kiddy Land</p>
+            <ul style="font-size:14px; padding-left:20px;">
+            	<li>母嬰用品</li>
+            	<li>泡澡球</li>            	
+        </ul>
+		<button class="map-btn" onclick="openMap('Kiddy Land')">🗺️ 導航至 Kiddy Land</button>
+		<button class="map-btn" onclick="openMap('Akachan Honpo (阿卡將本舖)')">🗺️ 導航至 Akachan</button>
+    </div>    
+    
     <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
         <p><strong>👗 生活雜貨</strong></p>
         <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 3 心齋橋</p>
@@ -194,18 +221,7 @@
         </ul>
         <button class="map-btn" onclick="openMap('心齋橋')">🗺️ 導航至 心齋橋</button>
         <button class="map-btn" onclick="openMap('新京極商店街')">🗺️ 導航至新京極</button>
-    </div>
-
-	<div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
-            </p><div class="shop-tag" style="background:#fff0f6; color:#e64980;">✨ IP 泡澡球 & 驚喜禮物</div></p>
-            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 3 梅田 Kiddy Land</p>
-            <ul style="font-size:14px; padding-left:20px;">
-            	<li>母嬰用品</li>
-            	<li>泡澡球</li>            	
-        </ul>
-		<button class="map-btn" onclick="openMap('Kiddy Land')">🗺️ 導航至 Kiddy Land</button>
-		<button class="map-btn" onclick="openMap('Akachan Honpo (阿卡將本舖)')">🗺️ 導航至 Akachan</button>
-    </div>
+    </div>	
 
     <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
         <p><strong>🍵 必買伴手禮</strong></p>
@@ -272,6 +288,14 @@
     <div id="toast">已複製</div>
 
     <script>
+	
+	// --- 自定義美食口袋名單 (可隨時擴充) ---
+	const foodListData = [
+	    { name: "五行拉麵 (Gogyo)", info: "著名的焦香黑味噌拉麵。", dish: "焦がし味噌ラーメン", addr: "京都 五行" },
+	    { name: "茶寮都路里", info: "超人氣抹茶甜點名店。", dish: "特選都路里冰淇淋", addr: "茶寮都路里 祇園本店" },
+	    // 您可以在此繼續增加...
+	];
+
 	let currentDay = 1; // 確保系統知道現在是哪一天
         const tripData = {
             1: {
@@ -557,19 +581,21 @@
                 `).join('')}
             </div>
         </div>`;
-    } else {
-        // 4. 最後才是處理一般節點
-        html += `
-        <div class="timeline-node">
-            <div class="node-dot"></div>
-            <span class="node-time">${n.time} <span class="node-stay">⏱️ ${n.stay}</span></span>
-            <div class="card" onclick="copy('${n.addr || ''}')">
-                <div class="node-title">${n.title} ${n.addr ? '📋' : ''}</div>
-                <div class="guide-box">${n.guide}</div>
-                ${n.addr ? `<button class="map-btn" onclick="openMap('${n.addr}')">🗺️ 地圖導航</button>` : ''}
+} else {
+    html += `
+    <div class="timeline-node">
+        <div class="node-dot"></div>
+        <span class="node-time">${n.time}</span>
+        <div class="card">
+            <div style="font-weight:bold; font-size:17px;">${n.title}</div>
+            <div class="guide-box">${n.guide}</div>
+            <div style="display:flex; gap:8px;">
+                ${n.addr ? `<button class="map-btn" style="flex:1;" onclick="openMap('${n.addr}')">🗺️ 地圖</button>` : ''}
+                <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${n.title}')">🔍 搜尋</button>
             </div>
-        </div>`;
-    }
+        </div>
+    </div>`;
+}
 });
 
             // 歸巢節點
@@ -656,8 +682,61 @@
             window.open(url, '_blank');
         }
 
-        function showModal(id) { document.getElementById(id + '-modal').style.display = 'block'; }
-        function hideModal(id) { document.getElementById(id + '-modal').style.display = 'none'; }
+	// --- 一鍵 Google 搜尋功能 ---
+	function googleSearch(query) {
+	    if(!query) return;
+	    // 為了搜尋更精準，我們可以自動加上地區關鍵字（例如：大阪 餐廳名）
+	    const fullQuery = query; 
+	    const url = `https://www.google.com/search?q=${encodeURIComponent(fullQuery)}`;
+	    window.open(url, '_blank');
+	}
+
+        //function showModal(id) { document.getElementById(id + '-modal').style.display = 'block'; }
+        // 修改原本的 showModal 函式
+function showModal(id) {
+    if (id === 'food') {
+        updateFoodModal();
+    }
+    document.getElementById(id + '-modal').style.display = 'block';
+}
+
+// 新增自動生成美食清單的函式
+function updateFoodModal() {
+    const container = document.getElementById('foodListContainer');
+    let allRestaurants = [...foodListData]; // 先放入口袋名單
+
+    // 自動從行程 tripData 中抓取所有 isDining 的餐廳
+    Object.values(tripData).forEach(day => {
+        day.nodes.forEach(node => {
+            if (node.isDining && node.options) {
+                allRestaurants = allRestaurants.concat(node.options);
+            }
+        });
+    });
+
+    // 移除重複的餐廳 (以名稱判斷)
+    const uniqueRestaurants = allRestaurants.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
+
+    // 生成 HTML
+    // 找到這段並修改按鈕部分：
+container.innerHTML = uniqueRestaurants.map(r => `
+    <div class="card" style="margin-bottom: 15px; border-left: 5px solid #f39c12;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+                <strong style="font-size:16px;">${r.name}</strong><br>
+                <small style="color:#666;">${r.info}</small>
+            </div>
+            <div class="menu-pill" style="margin:0;">✨ ${r.dish}</div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+            <button class="map-btn" style="flex:1; margin:0;" onclick="openMap('${r.addr}')">🗺️ 地圖導航</button>
+            <button class="map-btn" style="flex:1; margin:0; background:#fff0f0; color:#e63946;" onclick="googleSearch('${r.name}')">🔍 網頁搜尋</button>
+        </div>
+    </div>
+`).join('');
+
+}
+	function hideModal(id) { document.getElementById(id + '-modal').style.display = 'none'; }
 
 	// --- 左右滑動切換天數核心引擎 ---
 let touchstartX = 0;
