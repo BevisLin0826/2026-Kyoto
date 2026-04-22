@@ -457,21 +457,35 @@
                     ]},
                     {
                         trans: [
-                            { type: "🚌", text: "<b>公車 / 計程車</b> 往金閣寺。", addr: "金閣寺" },
+                            { type: "🚌", text: "<b>公車</b> 往金閣寺(50min)。", addr: "金閣寺" },
                             { type: "🚕", text: "<b>計程車 (建議)</b> 省力直達 25min，2,800円。", addr: "金閣寺" }
                         ]
                     },
-                    { time: "15:00", title: "金閣寺 (鹿苑寺)", addr: "京都市北区金閣寺町1", stay: "1.5hr", guide: "【視覺】外牆純金箔。下午 3 點陽光斜射在舍利殿上最燦爛。" },
+                    { time: "15:00", title: "金閣寺 (鹿苑寺)", addr: "京都市北区金閣寺町1", stay: "1hr", guide: "【視覺】外牆純金箔。下午 3 點陽光斜射在舍利殿上最燦爛。" },
                     {
                         trans: [
-                            { type: "🚕", text: "<b>計程車</b> 返回京都車站 (25min)。", addr: "京都駅" }
+			{ type: "🚌", text: "<b>公車 </b> 往靈光殿天滿宮(25min)，特色御守二選一。", addr: "靈光殿天滿宮" },
+			{ type: "🚌", text: "<b>公車 </b> 往御金神社(35min)，特色御守二選一。", addr: "御金神社" },
+			{ type: "🚌", text: "<b>公車 </b> 往AEON MALL KYOTO(50min)。", addr: "AEON MALL KYOTO" }
                         ]
                     },
-                    { time: "18:30", title: "晚餐三選一 (京都站)", isDining: true, options: [
-                        { name: "東洋亭", info: "百年老牌西餐。", dish: "番茄沙拉必吃。", addr: "Grill Capital 東洋亭 JR京都伊勢丹店" },
-                        { name: "築地 壽司清", info: "伊勢丹 11F 高品質。", dish: "板前握壽司定食。", addr: "築地 寿司清 伊勢丹 JR京都店" },
-                        { name: "炸豬排 和幸", info: "CP值最高首選。", dish: "綜合炸物定食。", addr: "和幸 JR京都伊勢丹 11F" }
-                    ]}
+                    { 
+                        time: "17:30", 
+                        title: "🛍️ AEON MALL KYOTO 逛街", 
+                        addr: "AEON MALL KYOTO", 
+                        stay: "3hr", 
+                        guide: "<b>重點商店</b>：阿卡將 (Akachan Honpo)、WorkmanGirl、3Coins、無印良品、UNIQLO。" 
+                    },
+                    { 
+                        time: "19:00", 
+                        title: "AEON 晚餐 (家庭友善)", 
+                        isDining: true, 
+                        options: [
+                            { name: "東洋亭 (AEON店)", info: "不用去車站排隊，這裡也有分店！", dish: "漢堡排定食", addr: "グリルキャピタル東洋亭 イオンモールKYOTO店" },
+                            { name: "京の焼肉處 弘 (京都駅西店)", info: "AEON 步行 4 分鐘，獨立建築，環境極佳的頂級燒肉。", dish: "和牛拼盤 / 鹽味厚切牛舌", addr: "京の焼肉 弘 京都駅西店" },
+                            { name: "五右衛門 義大利麵", info: "日式洋風麵，容易避開昆布底。", dish: "明太子奶油義大利麵", addr: "洋麺屋五右衛門 イオンモールKYOTO店" }
+                        ]
+                    }
                 ]
             },
             3: {
@@ -483,8 +497,12 @@
                             { type: "🚆", text: "<b>京阪電車 (五條->伏見)</b>", addr: "伏見稻荷大社 千本鳥居" }
                         ]
                     },
-                    { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。" },
-                    {
+                    { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。吉伊卡哇本舖" },
+                    
+			{ time: "10:30", title: "周邊美食", isDining: true, options: [
+                        { name: "NEZAMEYA（祢ざめ家）", info: "稻禾壽司。", dish: "「NEZAMEYA」是老店中的老店。", addr: "祢ざめ家" }
+                    ]},	
+			{
                         trans: [
                             { type: "🚕", text: "<b>計程車 (建議)</b><br>直達清水寺「五條坂頂端」15min。", addr: "TOYOCARMAX Kiyomizuderamonzen Parking Lot" }
                         ]
@@ -556,13 +574,23 @@
                     { time: "10:30", title: "通天閣 / 新世界", addr: "大阪市浪速区恵美須東", stay: "1.5hr", guide: "【地標】昭和風情招牌街。可挑戰展望台或溜滑梯。<br>重點：拍攝巨大的河豚招牌與通天閣合影。" },
                     {
                         trans: [
+                            { type: "🚕", text: "<b>計程車 (短程)</b><br>直達八阪神社 (8min, 1,000円)。", addr: "難波八阪神社" }
+                        ]
+                    },
+		    { 
+                        time: "11:45", 
+                        title: "🦁 難波八阪神社", 
+                        addr: "難波八阪神社", 
+                        guide: "<b>必拍大地標</b>：巨大的獅子殿非常壯觀。來拍張「獅子大開口」的照片，祈求學業與運氣。" },
+                        {trans: [
                             { type: "🚕", text: "<b>計程車 (短程)</b><br>直達黑門市場入口 (5min, 1,000円)。", addr: "黒門市場" }
                         ]
                     },
-                    { time: "12:30", title: "黑門市場午餐 (三選一)", isDining: true, options: [
+
+                    { time: "12:45", title: "黑門市場午餐 (三選一)", isDining: true, options: [
+                        { name: "石橋食品", info: "40年老字號關東煮。", dish: "軟爛入味大蘿蔔 (長輩小孩首選)。", addr: "石橋食品" },
                         { name: "黑門三平", info: "現剖海鮮與海膽名店。", dish: "現烤大干貝 / 鮪魚腹肉。", addr: "黒門三平" },
-                        { name: "萬野總本店", info: "精肉店直營和牛燒烤。", dish: "黑毛和牛代客現煎。", addr: "萬野総本店" },
-                        { name: "石橋食品", info: "40年老字號關東煮。", dish: "軟爛入味大蘿蔔 (長輩小孩首選)。", addr: "石橋食品" }
+                        { name: "萬野總本店", info: "精肉店直營和牛燒烤。", dish: "黑毛和牛代客現煎。", addr: "萬野総本店" }
                     ]},
                     {
                         trans: [
@@ -588,8 +616,8 @@
                     },
                     { time: "19:00", title: "梅田晚餐 (三選一)", isDining: true, options: [
                         { name: "備長 鰻魚飯", info: "名古屋流派炭烤。<br>鰻魚飯7F; TNF 5F。", dish: "鰻魚三吃 (一鰻三味)。", addr: "ひつまぶし備長 グランフロント大阪" },
-                        { name: "利久牛舌", info: "仙台經典厚切牛舌。", dish: "牛舌極定食配牛尾湯。", addr: "牛たん炭焼 利久 大丸梅田店" },
-                        { name: "北極星蛋包飯", info: "蛋包飯始祖，口味溫和。", dish: "經典雞肉蛋包飯 (小孩最愛)。", addr: "北極星 大丸梅田店" }
+			{ name: "燒肉力丸", info: "吃到飽和牛燒肉。", dish: "厚切牛舌", addr: "焼肉力丸 梅田"},
+                        { name: "利久牛舌", info: "仙台經典厚切牛舌。", dish: "牛舌極定食配牛尾湯。", addr: "牛たん炭焼 利久 大丸梅田店" }
                     ]},
                     {
                         trans: [
