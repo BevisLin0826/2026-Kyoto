@@ -90,7 +90,23 @@
         /* --- 餐廳輪播 --- */
         .dining-wrap { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; scroll-snap-type: x mandatory; }
         .dining-card { flex: 0 0 88%; background: #fff; border-radius: 18px; padding: 20px; border: 1px solid #f1f3f5; box-shadow: 0 4px 15px rgba(0,0,0,0.05); scroll-snap-align: start; }
-        .menu-pill { display: inline-block; background: #fff4e6; color: #d35400; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 8px; margin-top: 10px; }
+        /* 地區顏色標籤 */
+	.card-kyoto { border-left: 5px solid #e67e22 !important; } /* 橘紅色：象徵京都的古色古香 */
+	.card-osaka { border-left: 5px solid #3498db !important; } /* 亮藍色：象徵大阪的現代活力 */
+
+.region-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.badge-kyoto { background-color: #e67e22; }
+.badge-osaka { background-color: #3498db; }
+
+	.menu-pill { display: inline-block; background: #fff4e6; color: #d35400; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 8px; margin-top: 10px; }
 
         /* --- 功能模組 --- */
         .modal { position: fixed; inset: 0; background: white; z-index: 2000; display: none; padding: 35px 20px; overflow-y: auto; animation: slideUp 0.3s ease-out; }
@@ -143,6 +159,25 @@
             <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">ヨウ素を制限しています。昆布、わかめ、海苔、または昆布だしを使用していない料理はありますか？</p>
             <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
         </div>
+	<div class="guide-box">
+            <strong>🥩 燒肉要求 (鹽味)</strong><br>
+            關鍵字：お肉はすべて「塩」でお願いします。
+        </div>
+        <div class="card" onclick="copy('全ての肉を「塩」でお願いします。')">
+            <p><strong>給店員看 (點擊複製)：</strong></p>
+            <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">全ての肉を「塩」でお願いします。 </p>
+            <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
+        </div>
+	<div class="guide-box">
+            <strong>請不要使用昆布高湯或相關調味</strong><br>
+            關鍵字：昆布だしを使わないでください
+        </div>
+        <div class="card" onclick="copy('昆布だしを使わないでください')">
+            <p><strong>給店員看 (點擊複製)：</strong></p>
+            <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">昆布だしを使わないでください</p>
+            <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
+        </div>
+
     </div>
 
     <div id="food-modal" class="modal">
@@ -177,19 +212,24 @@
     
     <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
         <p><strong>👟 功能性運動鞋 (重點任務)</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 3 大阪梅田 (LUCUA / Grand Front)</p>
+        <p style="font-size:13px; color:#666;">時機：Day 4 大阪梅田 (LUCUA / Grand Front)</p>
         <ul style="font-size:14px; padding-left:20px;">
             <li>New Balance (9060 涼鞋)</li>
             <li>HOKA (ORA PRIMO)</li>
             <li>On (Cloudsurfer Max)</li>
+            <li>TNF (紫標)</li>
+            <li>Workman</li>
         </ul>
         <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
 	<button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
+	<button class="map-btn" onclick="openMap('THE NORTH FACE+ GRAND FRONT Osaka Store')">🗺️ 導航至 TNF 梅田</button>
+	<button class="map-btn" onclick="openMap('WORKMAN Shose')">🗺️ 導航至 WORKMAN Shose 京都 AEON 3F</button>
+	<button class="map-btn" onclick="openMap('WORKMAN Girl')">🗺️ 導航至 WORKMAN Girl 大阪</button>
     </div>
 
 	<div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
             </p><div class="shop-tag" style="background:#fff0f6; color:#e64980;">✨ IP 泡澡球 & 驚喜禮物</div></p>
-            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 3 梅田 Kiddy Land</p>
+            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 4 梅田 Kiddy Land</p>
             <ul style="font-size:14px; padding-left:20px;">
             	<li>母嬰用品</li>
             	<li>泡澡球</li>            	
@@ -200,12 +240,16 @@
     
     <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
         <p><strong>👗 生活雜貨</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 3 心齋橋</p>
+        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
         <ul style="font-size:14px; padding-left:20px;">
+            <li>Uniqlo </li>
+            <li>GU </li>
             <li>3Coins </li>
             <li>無印良品 (網布筆筒/精華液)</li>
             <li>Standard Product</li>
         </ul>
+	<button class="map-btn" onclick="openMap('Uniqlo')">🗺️ 導航至 Uniqlo</button>
+	<button class="map-btn" onclick="openMap('GU')">🗺️ 導航至 GU</button>
 	<button class="map-btn" onclick="openMap('3Coins')">🗺️ 導航至 3Coins</button>
 	<button class="map-btn" onclick="openMap('無印良品')">🗺️ 導航至 Muji</button>
 	<button class="map-btn" onclick="openMap('StandardProduct')">🗺️ 導航至 StandardProduct</button>
@@ -213,9 +257,10 @@
         
     <div class="card" style="margin-bottom:15px; border-left: 5px solid #f39c12;">
         <p><strong>💊 藥妝與常備藥</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 3 心齋橋</p>
+        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
         <ul style="font-size:14px; padding-left:20px;">
-            <li>Wakamoto 若元錠</li>
+            <li>エスエス製薬（新エスタック顆粒 (Shin Estac Granules)</li>
+	    <li>Wakamoto 若元錠</li>
             <li>休足時間 (今晚就能用！)</li>
             <li>合利他命 EX Plus</li>
         </ul>
@@ -291,8 +336,57 @@
 	
 	// --- 自定義美食口袋名單 (可隨時擴充) ---
 	const foodListData = [
-	    { name: "五行拉麵 (Gogyo)", info: "著名的焦香黑味噌拉麵。", dish: "焦がし味噌ラーメン", addr: "京都 五行" },
-	    { name: "茶寮都路里", info: "超人氣抹茶甜點名店。", dish: "特選都路里冰淇淋", addr: "茶寮都路里 祇園本店" },
+	{ name: "五行拉麵 (Gogyo)", info: "著名的焦香黑味噌拉麵。", dish: "焦がし味噌ラーメン", addr: "京都 五行", region: "Kyoto" },
+	    { name: "茶寮都路里", info: "超人氣抹茶甜點名店。", dish: "特選都路里冰淇淋", addr: "茶寮都路里 祇園本店", region: "Kyoto" },
+	    { name: "燒肉力丸", info: "吃到飽和牛燒肉。", dish: "厚切牛舌", addr: "焼肉力丸 梅田", region: "Osaka" },
+    { 
+        name: "挽肉與米 京都店", 
+        info: "祇園古宅內的炭火現烤漢堡排，米飯極致美味。", 
+        dish: "挽肉與米套餐 (3 顆漢堡排)", 
+        addr: "挽肉と米" , region: "Kyoto"
+    },
+    { 
+        name: "鴨 to 蔥 大阪梅田店", 
+        info: "湯頭僅用鴨、蔥、水熬製，梅田最新分店。", 
+        dish: "鴨拉麵 / 飲める親子丼", 
+        addr: "らぁ麺 鴨と葱" , region: "Osaka"
+    },
+{ 
+        name: "本家 第一旭", 
+        info: "京都排隊傳說，清爽不油膩的經典醬油豬骨。", 
+        dish: "特製拉麵 (叉燒加量)", 
+        addr: "本家 第一旭 本店", 
+        region: "Kyoto" 
+    },
+    { 
+        name: "吟醸らーめん 久保田", 
+        info: "飯店附近的沾麵王者，濃厚味噌香氣十足。", 
+        dish: "吟釀味噌沾麵", 
+        addr: "吟醸らーめん 久保田", 
+        region: "Kyoto" 
+    },
+    { 
+        name: "麵屋 聖 (Menya Kiro)", 
+        info: "時尚、乾淨，主打鮮美的貝類湯頭拉麵。", 
+        dish: "淡竹 (貝類系醬油拉麵)", 
+        addr: "麺屋 聖", 
+        region: "Kyoto" 
+    },
+{ 
+        name: "京の焼肉處 弘", 
+        info: "京都超人氣名店，每日採購整頭牛，肉質鮮甜。", 
+        dish: "今晚的精選拼盤 (和牛拼盤)", 
+        addr: "京の焼肉 弘", 
+        region: "Kyoto" 
+    },
+    { 
+        name: "あぶりや (Aburiya)", 
+        info: "大阪極受歡迎的國產牛吃到飽，環境對小孩極友善。", 
+        dish: "國產牛吃到飽方案 / 聖代甜點", 
+        addr: "あぶりや 梅田店", 
+        region: "Osaka" 
+    },
+
 	    // 您可以在此繼續增加...
 	];
 
@@ -381,6 +475,45 @@
                 ]
             },
             3: {
+                title: "古都靈魂：千本鳥居與清水舞台",
+                nodes: [
+                    { time: "08:00", title: "飯店出發", stay: "N/A", guide: "今日造訪京都兩大世界遺產。人多，建議長輩量力而為。" },
+                    {
+                        trans: [
+                            { type: "🚆", text: "<b>京阪電車 (五條->伏見)</b>", addr: "伏見稻荷大社 千本鳥居" }
+                        ]
+                    },
+                    { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。" },
+                    {
+                        trans: [
+                            { type: "🚕", text: "<b>計程車 (建議)</b><br>直達清水寺「五條坂頂端」15min。", addr: "TOYOCARMAX Kiyomizuderamonzen Parking Lot" }
+                        ]
+                    },
+                    { time: "11:00", title: "清水寺", addr: "京都市東山区清水1", stay: "2hr", guide: "【世界遺產】懸空舞台。音羽之瀧泉水洗手保長壽。" },
+                    {
+                        trans: [
+                            { type: "🚶", text: "<b>步行</b> 沿二年坂、三年坂走下坡路。", addr: "三年坂" }
+                        ]
+                    },
+                    { time: "13:00", title: "午餐三選一 (二年坂)", isDining: true, options: [
+                        { name: "阿古屋茶屋", info: "漬物茶泡飯。", dish: "漬物吃到飽。", addr: "阿古屋茶屋" },
+                        { name: "奧丹清水", info: "百年豆腐名店。", dish: "湯豆腐套餐。", addr: "Okutan Kiyomizu" },
+                        { name: "日月庵", info: "懷石氛圍景觀。", dish: "京料理定食。", addr: "京都市東山区清水2" }
+                    ]},
+                    {
+                        trans: [
+                            { type: "🚶", text: "<b>步行</b> 下山往四條河原町區域。", addr: "四條河原町" }
+                        ]
+                    },
+                    { time: "15:30", title: "河原町 / 鴨川散策", stay: "2hr", guide: "【商業區】京都最繁華處。傍晚鴨川吹風很舒服。" },
+                    { time: "19:00", title: "晚餐三選一", isDining: true, options: [
+                        { name: "三嶋亭 (大丸店)", info: "頂級壽喜燒。", dish: "和牛壽喜燒定食。", addr: "大丸京都 B1" },
+                        { name: "十二段家", info: "涮涮鍋發源店。", dish: "和牛涮涮鍋。", addr: "壽喜燒 十二段家 本店" },
+                        { name: "築地 壽司清", info: "高品質壽司。", dish: "季節握壽司套餐。", addr: "築地 寿司清 伊勢丹 JR京都店" }
+                    ]}
+                ]
+            },
+            4: {
                 title: "大阪深度遊：下町風情與都會繁華",
                 nodes: [
                     { 
@@ -465,45 +598,6 @@
                     }
                 ]
             },
-            4: {
-                title: "古都靈魂：千本鳥居與清水舞台",
-                nodes: [
-                    { time: "08:00", title: "飯店出發", stay: "N/A", guide: "今日造訪京都兩大世界遺產。人多，建議長輩量力而為。" },
-                    {
-                        trans: [
-                            { type: "🚆", text: "<b>京阪電車 (五條->伏見)</b>", addr: "伏見稻荷大社 千本鳥居" }
-                        ]
-                    },
-                    { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。" },
-                    {
-                        trans: [
-                            { type: "🚕", text: "<b>計程車 (建議)</b><br>直達清水寺「五條坂頂端」15min。", addr: "TOYOCARMAX Kiyomizuderamonzen Parking Lot" }
-                        ]
-                    },
-                    { time: "11:00", title: "清水寺", addr: "京都市東山区清水1", stay: "2hr", guide: "【世界遺產】懸空舞台。音羽之瀧泉水洗手保長壽。" },
-                    {
-                        trans: [
-                            { type: "🚶", text: "<b>步行</b> 沿二年坂、三年坂走下坡路。", addr: "三年坂" }
-                        ]
-                    },
-                    { time: "13:00", title: "午餐三選一 (二年坂)", isDining: true, options: [
-                        { name: "阿古屋茶屋", info: "漬物茶泡飯。", dish: "漬物吃到飽。", addr: "阿古屋茶屋" },
-                        { name: "奧丹清水", info: "百年豆腐名店。", dish: "湯豆腐套餐。", addr: "Okutan Kiyomizu" },
-                        { name: "日月庵", info: "懷石氛圍景觀。", dish: "京料理定食。", addr: "京都市東山区清水2" }
-                    ]},
-                    {
-                        trans: [
-                            { type: "🚶", text: "<b>步行</b> 下山往四條河原町區域。", addr: "四條河原町" }
-                        ]
-                    },
-                    { time: "15:30", title: "河原町 / 鴨川散策", stay: "2hr", guide: "【商業區】京都最繁華處。傍晚鴨川吹風很舒服。" },
-                    { time: "19:00", title: "晚餐三選一", isDining: true, options: [
-                        { name: "三嶋亭 (大丸店)", info: "頂級壽喜燒。", dish: "和牛壽喜燒定食。", addr: "大丸京都 B1" },
-                        { name: "十二段家", info: "涮涮鍋發源店。", dish: "和牛涮涮鍋。", addr: "壽喜燒 十二段家 本店" },
-                        { name: "築地 壽司清", info: "高品質壽司。", dish: "季節握壽司套餐。", addr: "築地 寿司清 伊勢丹 JR京都店" }
-                    ]}
-                ]
-            },
             5: {
                 title: "最後採買與歸途",
                 nodes: [
@@ -568,19 +662,22 @@
     } else if (n.isDining) {
         // 3. 處理餐廳三選一
         html += `
-        <div class="timeline-node">
-            <div class="node-dot" style="border-color:var(--secondary);"></div>
-            <span class="node-time">🍴 餐廳三選一 (附近)</span>
-            <div class="dining-wrap">
-                ${n.options.map(o => `
-                    <div class="dining-card" onclick="copy('${o.addr}')">
-                        <strong>${o.name}</strong><br><small>${o.info}</small>
-                        <br><button class="map-btn" onclick="openMap('${o.addr}')">🗺️ 地圖導航</button>
-                        <div class="menu-pill">✨ ${o.dish}</div>
+    <div class="timeline-node">
+        <div class="node-dot" style="border-color:var(--secondary);"></div>
+        <span class="node-time">🍴 餐廳三選一 (附近)</span>
+        <div class="dining-wrap">
+            ${n.options.map(o => `
+                <div class="dining-card">
+                    <strong>${o.name}</strong><br><small>${o.info}</small>
+                    <div style="display:flex; gap:5px; margin-top:8px;">
+                        <button class="map-btn" style="flex:1;" onclick="openMap('${o.addr}')">🗺️ 地圖</button>
+                        <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${o.name}')">🔍 搜尋</button>
                     </div>
-                `).join('')}
-            </div>
-        </div>`;
+                    <div class="menu-pill">✨ ${o.dish}</div>
+                </div>
+            `).join('')}
+        </div>
+    </div>`;
 } else {
     html += `
     <div class="timeline-node">
@@ -703,38 +800,56 @@ function showModal(id) {
 // 新增自動生成美食清單的函式
 function updateFoodModal() {
     const container = document.getElementById('foodListContainer');
-    let allRestaurants = [...foodListData]; // 先放入口袋名單
+    let allRestaurants = [];
 
-    // 自動從行程 tripData 中抓取所有 isDining 的餐廳
-    Object.values(tripData).forEach(day => {
+    // 1. 處理口袋名單 (請確保 foodListData 內的物件已有 region: "Kyoto" 或 "Osaka")
+    foodListData.forEach(r => {
+        allRestaurants.push({ ...r });
+    });
+
+    // 2. 自動從行程 tripData 中抓取，並根據天數標註地區
+    Object.keys(tripData).forEach(dayNum => {
+        const day = tripData[dayNum];
+        // 判定規則：Day 4 是大阪，其他天數是京都
+        const autoRegion = (parseInt(dayNum) === 4) ? "Osaka" : "Kyoto";
+        
         day.nodes.forEach(node => {
             if (node.isDining && node.options) {
-                allRestaurants = allRestaurants.concat(node.options);
+                node.options.forEach(opt => {
+                    // 將地區資訊注入到物件中
+                    allRestaurants.push({ ...opt, region: autoRegion });
+                });
             }
         });
     });
 
-    // 移除重複的餐廳 (以名稱判斷)
+    // 移除重複
     const uniqueRestaurants = allRestaurants.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
 
-    // 生成 HTML
-    // 找到這段並修改按鈕部分：
-container.innerHTML = uniqueRestaurants.map(r => `
-    <div class="card" style="margin-bottom: 15px; border-left: 5px solid #f39c12;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-            <div>
-                <strong style="font-size:16px;">${r.name}</strong><br>
-                <small style="color:#666;">${r.info}</small>
-            </div>
-            <div class="menu-pill" style="margin:0;">✨ ${r.dish}</div>
-        </div>
-        <div style="display:flex; gap:8px; margin-top:10px;">
-            <button class="map-btn" style="flex:1; margin:0;" onclick="openMap('${r.addr}')">🗺️ 地圖導航</button>
-            <button class="map-btn" style="flex:1; margin:0; background:#fff0f0; color:#e63946;" onclick="googleSearch('${r.name}')">🔍 網頁搜尋</button>
-        </div>
-    </div>
-`).join('');
+    // 3. 生成 HTML (加入顏色判斷)
+    container.innerHTML = uniqueRestaurants.map(r => {
+        const isOsaka = r.region === "Osaka";
+        const regionClass = isOsaka ? "card-osaka" : "card-kyoto";
+        const badgeClass = isOsaka ? "badge-osaka" : "badge-kyoto";
+        const regionName = isOsaka ? "大阪" : "京都";
 
+        return `
+            <div class="card ${regionClass}" style="margin-bottom: 15px;">
+                <div class="region-badge ${badgeClass}">${regionName}</div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div>
+                        <strong style="font-size:16px;">${r.name}</strong><br>
+                        <small style="color:#666;">${r.info}</small>
+                    </div>
+                    <div class="menu-pill" style="margin:0;">✨ ${r.dish}</div>
+                </div>
+                <div style="display:flex; gap:8px; margin-top:10px;">
+                    <button class="map-btn" style="flex:1; margin:0;" onclick="openMap('${r.addr}')">🗺️ 地圖導航</button>
+                    <button class="map-btn" style="flex:1; margin:0; background:#f0f0f0; color:#555;" onclick="googleSearch('${r.name}')">🔍 搜尋資訊</button>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 	function hideModal(id) { document.getElementById(id + '-modal').style.display = 'none'; }
 
