@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>京都導航助理 V8.0</title>
+    <title>京都導航助理 V9.0</title>
     <style>
         :root {
             --primary: #FF6B6B; --primary-light: #FF8E8E;
             --secondary: #4ECDC4; --accent: #FFE66D;
             --transit: #3498db; --taxi: #f39c12;
-			--baby: #A29BFE; /* 新增寶貝色系 */
+		--baby: #A29BFE; /* 新增寶貝色系 */
             --bg: #F0F2F5; --card: #FFFFFF;
             --timeline-line: #dee2e6;
         }
@@ -90,7 +90,34 @@
         /* --- 餐廳輪播 --- */
         .dining-wrap { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; scroll-snap-type: x mandatory; }
         .dining-card { flex: 0 0 88%; background: #fff; border-radius: 18px; padding: 20px; border: 1px solid #f1f3f5; box-shadow: 0 4px 15px rgba(0,0,0,0.05); scroll-snap-align: start; }
-        /* 地區顏色標籤 */
+        /* 首選餐廳強調樣式 */
+	.primary-choice {
+	    background: #fff9db !important; /* 黃金底色 */
+	    border: 2px solid #fab005 !important;
+	    transform: scale(1.02);
+	    box-shadow: 0 6px 15px rgba(250, 176, 5, 0.2);
+	}
+	.primary-tag {
+	    background: #fab005;
+	    color: white;
+	    padding: 2px 8px;
+	    border-radius: 4px;
+	    font-size: 11px;
+	    font-weight: bold;
+	    margin-bottom: 5px;
+	    display: inline-block;
+	}
+	.backup-tag {
+	    background: #adb5bd;
+	    color: white;
+	    padding: 2px 8px;
+	    border-radius: 4px;
+	    font-size: 11px;
+	    font-weight: bold;
+	    margin-bottom: 5px;
+	    display: inline-block;
+	}
+	/* 地區顏色標籤 */
 	.card-kyoto { border-left: 5px solid #e67e22 !important; } /* 橘紅色：象徵京都的古色古香 */
 	.card-osaka { border-left: 5px solid #3498db !important; } /* 亮藍色：象徵大阪的現代活力 */
 
@@ -134,9 +161,9 @@
     <div class="tool-bar">
         <button class="tool-btn" onclick="showModal('diet')">🚫 飲食禁忌</button>
         <button class="tool-btn" onclick="showModal('entry')">📄 入境參考</button>
-	<button class="tool-btn" onclick="showModal('shopping')">🛍️ 購物清單</button>	
-        <button class="tool-btn" onclick="showModal('sos')" style="color:#E63946">🆘 SOS 救助</button>
+	<button class="tool-btn" onclick="showModal('shopping')"style="background:#e7f5ff; border:1px solid #ff9ff3; ">🛍️ 購物清單</button>	
 	<button class="tool-btn" onclick="showModal('food')" style="background:#fff9db;">🍱 美食地圖</button>
+        <button class="tool-btn" onclick="showModal('sos')" style="color:#E63946">🆘 SOS 救助</button>
 	<button class="tool-btn" onclick="showModal('pokemon')" style="background:#fff0f6; border:1px solid #ff9ff3;">⚡ 寶可夢中心</button>
     </div>
 
@@ -215,15 +242,13 @@
         <p style="font-size:13px; color:#666;">時機：Day 4 大阪梅田 (LUCUA / Grand Front)</p>
         <ul style="font-size:14px; padding-left:20px;">
             <li>New Balance (9060 涼鞋)</li>
-            <li>鬼塚虎 (Mexico 66 幼童涼鞋)</li>
-            <li>On (Cloudsurfer Max)</li>
             <li>HOKA (ORA PRIMO)</li>
+            <li>On (Cloudsurfer Max)</li>
             <li>TNF (紫標)</li>
             <li>Workman</li>
         </ul>
         <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
-	<button class="map-btn" onclick="openMap('New Balance')">🗺️ 導航至 New Balance 京都高島屋 3F/心齋橋店</button>
-	<button class="map-btn" onclick="openMap('Onitsuka Tiger')">🗺️ 導航至 鬼塚虎 難波/心齋橋/京都</button>
+	<button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
 	<button class="map-btn" onclick="openMap('THE NORTH FACE+ GRAND FRONT Osaka Store')">🗺️ 導航至 TNF 梅田</button>
 	<button class="map-btn" onclick="openMap('WORKMAN Shose')">🗺️ 導航至 WORKMAN Shose 京都 AEON 3F</button>
 	<button class="map-btn" onclick="openMap('WORKMAN Girl')">🗺️ 導航至 WORKMAN Girl 大阪</button>
@@ -305,7 +330,7 @@
                 <p><strong>【心齋橋店】Pokémon Center DX</strong><br>
                 <small>地點：大丸心齋橋本館 9F</small></p>
                 <p style="font-size:12px; color:#666;">適合當前：道頓堀散策後，步行可達。</p>
-                <button class="map-btn" onclick="openMap('寶可夢中心 大阪店 DX')">📍 開啟心齋橋店導航</button>
+                <button class="map-btn" onclick="openMap('Pokémon Center DX')">📍 開啟心齋橋店導航</button>
             </div>
         </div>
         <div class="guide-box" style="margin-top:20px;">
@@ -416,11 +441,11 @@
                             { type: "🚶", text: "<b>步行</b> 往先斗町區域約 10min。", addr: "先斗町" }
                         ]
                     },
-                    { time: "18:30", title: "晚餐三選一", isDining: true, options: [
-                        { name: "先斗町 豆雅傳", info: "豆腐料理專門店。", dish: "豆腐懷石套餐（改茶水高湯）。", addr: "Sanjo Tofu Den" },
-                        { name: "先斗町 Kappa 壽司", info: "鴨川河畔景觀。", dish: "本日限定握壽司。", addr: "先斗町 かっぱ寿司" },
-                        { name: "名代豬排 かかつくら", info: "經典炸豬排。", dish: "里肌豬排定食。", addr: "名代とんかつ かつくら 四条寺町店" }
-                    ]},
+                    { time: "18:00", title: "晚餐：名代豬排與寺町散策", isDining: true, options: [
+                { name: "名代豬排 (かつくら)", info: "首選：京都豬排巔峰。請母親避開醬汁沾鹽吃。", dish: "精品豬排定食", addr: "名代とんかつ かつくら 四条寺町店", isPrimary: true },
+                { name: "亮昌餃子 (高辻店)", info: "備案 B：京都特有和風餃子。步行極近、美味度高。", dish: "煎餃套餐", addr: "ぎょうざ処 亮昌 高辻店" },
+                { name: "五行拉麵 (Gogyo)", info: "備案 C：焦香黑味噌。獨特的焦燻味，拉麵迷首選。", dish: "焦がし味噌ラーメン", addr: "京都 五行" }
+            ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 穿過四條大橋到底即達。", addr: "八坂神社" }
@@ -452,11 +477,11 @@
                         ]
                     },
                     { time: "11:30", title: "渡月橋", stay: "45min", guide: "【地標】意為「月亮過橋」。河濱有長椅可讓長輩坐著休息觀景。" },
-                    { time: "12:30", title: "嵐山午餐三選一", isDining: true, options: [
-                        { name: "鯛匠 HANANA", info: "人氣鯛魚茶泡飯。", dish: "鯛魚三吃（選茶水）。", addr: "Taisho HANANA" },
-                        { name: "嵯峨豆腐 稻", info: "長輩友善座位多。", dish: "湯豆腐定食。", addr: "嵯峨豆腐 稻 本店" },
-                        { name: "嵐山 廣川", info: "米其林鰻魚（預約制）。", dish: "蒲燒鰻魚重。", addr: "鰻魚屋 廣川" }
-                    ]},
+                    { time: "12:00", title: "午餐：嵐山豆腐饗宴", isDining: true, options: [
+                { name: "嵯峨豆腐 稻", info: "首選：清爽豆腐料理，母親最安全且美味的選擇。", dish: "湯豆腐定食", addr: "嵯峨豆腐 稻 本店", isPrimary: true },
+                { name: "鯛匠 HANANA", info: "備案 B：鯛魚茶泡飯名店。美味程度京都一流。", dish: "鯛魚三吃", addr: "Taisho HANANA" },
+                { name: "嵐山 廣川", info: "備案 C：米其林鰻魚。若有預約到則為首選。", dish: "蒲燒鰻魚重", addr: "鰻魚屋 廣川" }
+            ]},
                     {
                         trans: [
                             { type: "🚌", text: "<b>公車</b> 往金閣寺(50min)。", addr: "金閣寺" },
@@ -478,16 +503,11 @@
                         stay: "3hr", 
                         guide: "<b>重點商店</b>：阿卡將 (Akachan Honpo)、WorkmanGirl、3Coins、無印良品、UNIQLO。" 
                     },
-                    { 
-                        time: "19:00", 
-                        title: "AEON 晚餐 (家庭友善)", 
-                        isDining: true, 
-                        options: [
-                            { name: "東洋亭 (AEON店)", info: "不用去車站排隊，這裡也有分店！", dish: "漢堡排定食", addr: "グリルキャピタル東洋亭 イオンモールKYOTO店" },
-                            { name: "京の焼肉處 弘 (京都駅西店)", info: "AEON 步行 4 分鐘，獨立建築，環境極佳的頂級燒肉。", dish: "和牛拼盤 / 鹽味厚切牛舌", addr: "京の焼肉 弘 京都駅西店" },
-                            { name: "五右衛門 義大利麵", info: "日式洋風麵，容易避開昆布底。", dish: "明太子奶油義大利麵", addr: "洋麺屋五右衛門 イオンモールKYOTO店" }
-                        ]
-                    }
+                    { time: "18:30", title: "晚餐：頂級和牛體驗", isDining: true, options: [
+                { name: "京の焼肉處 弘", info: "首選：京都燒肉代名詞。點「鹽味」避開昆布醬汁。", dish: "今晚精選拼盤", addr: "京の焼肉 弘 三条木屋町店", isPrimary: true },
+                { name: "先斗町 Kappa 壽司", info: "備案 B：鴨川河畔壽司。食材新鮮度極佳。", dish: "板前握壽司", addr: "先斗町 かっぱ寿司" },
+                { name: "Moritaya (森田屋)", info: "備案 C：百年牛肉店，亦可選擇牛排避開昆布。", dish: "和牛牛排", addr: "モリタ屋 満月店" }
+            ]}
                 ]
             },
             3: {
@@ -501,36 +521,36 @@
                     },
                     { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。吉伊卡哇本舖" },
                     
-			{ time: "10:30", title: "周邊美食", isDining: true, options: [
-                        { name: "NEZAMEYA（祢ざめ家）", info: "稻禾壽司。", dish: "「NEZAMEYA」是老店中的老店。", addr: "祢ざめ家" }
-                    ]},	
+			{ time: "11:30", title: "午餐：伏見稻荷老鋪", isDining: true, options: [
+                { name: "祢ざめ家 (Nezameya)", info: "首選：豐臣秀吉命名。母親建議點『鹽烤鯖魚』。", dish: "炭烤鰻魚 / 鯖魚壽司", addr: "祢ざめ家", isPrimary: true },
+                { name: "道步 (Doppo)", info: "備案 B：精緻京料理。環境舒適，適合長輩休憩。", dish: "京彩箱套餐", addr: "伏見稲荷 京料理 道歩" },
+                { name: "Kendon-ya", info: "備案 C：手打烏龍麵。麵條極美味，人潮較少。", dish: "手打烏龍麵", addr: "けんどん屋" }
+            ]},
 			{
                         trans: [
                             { type: "🚕", text: "<b>計程車 (建議)</b><br>直達清水寺「五條坂頂端」15min。", addr: "TOYOCARMAX Kiyomizuderamonzen Parking Lot" }
                         ]
                     },
-                    { time: "11:00", title: "清水寺", addr: "京都市東山区清水1", stay: "2hr", guide: "【世界遺產】懸空舞台。音羽之瀧泉水洗手保長壽。" },
+                    { time: "12:00", title: "清水寺", addr: "京都市東山区清水1", stay: "2hr", guide: "【世界遺產】懸空舞台。音羽之瀧泉水洗手保長壽。" },
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 沿二年坂、三年坂走下坡路。", addr: "三年坂" }
                         ]
                     },
-                    { time: "13:00", title: "午餐三選一 (二年坂)", isDining: true, options: [
-                        { name: "阿古屋茶屋", info: "漬物茶泡飯。", dish: "漬物吃到飽。", addr: "阿古屋茶屋" },
-                        { name: "奧丹清水", info: "百年豆腐名店。", dish: "湯豆腐套餐。", addr: "Okutan Kiyomizu" },
-                        { name: "日月庵", info: "懷石氛圍景觀。", dish: "京料理定食。", addr: "京都市東山区清水2" }
-                    ]},
+                    { time: "13:00", title: "點心", isDining: true, options: [
+                        { name: "清水坂八ツ橋しゅ泡芙", info: "泡芙甜點，推薦抹茶泡芙。", dish: "抹茶泡芙", addr: "清水坂八ツ橋しゅ泡芙", isPrimary: true },
+                            ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 下山往四條河原町區域。", addr: "四條河原町" }
                         ]
                     },
                     { time: "15:30", title: "河原町 / 鴨川散策", stay: "2hr", guide: "【商業區】京都最繁華處。傍晚鴨川吹風很舒服。" },
-                    { time: "19:00", title: "晚餐三選一", isDining: true, options: [
-                        { name: "三嶋亭 (大丸店)", info: "頂級壽喜燒。", dish: "和牛壽喜燒定食。", addr: "大丸京都 B1" },
-                        { name: "十二段家", info: "涮涮鍋發源店。", dish: "和牛涮涮鍋。", addr: "壽喜燒 十二段家 本店" },
-                        { name: "築地 壽司清", info: "高品質壽司。", dish: "季節握壽司套餐。", addr: "築地 寿司清 伊勢丹 JR京都店" }
-                    ]}
+                    { time: "18:30", title: "晚餐：京都壽喜燒最高峰", isDining: true, options: [
+                { name: "三嶋亭 (高島屋店)", info: "首選：極致美味。母親務必點『油燒』避開昆布醬。", dish: "壽喜燒 / 油燒 (Oil-yaki)", addr: "三嶋亭 高島屋京都店", isPrimary: true },
+                { name: "東洋亭 (高島屋店)", info: "備案 B：百年洋食。漢堡排與番茄沙拉是美味保證。", dish: "漢堡排套餐", addr: "グリルキャピタル東洋亭 髙島屋店" },
+                { name: "築地 壽司清", info: "備案 C：高品質壽司。位於百貨內，環境舒適。", dish: "季節握壽司套餐", addr: "築地 寿司清 京都高島屋店" }
+            ]}
                 ]
             },
             4: {
@@ -574,7 +594,11 @@
                         ]
                     },
                     { time: "10:30", title: "通天閣 / 新世界", addr: "大阪市浪速区恵美須東", stay: "1.5hr", guide: "【地標】昭和風情招牌街。可挑戰展望台或溜滑梯。<br>重點：拍攝巨大的河豚招牌與通天閣合影。" },
-                    {
+                    
+		{ time: "11:00", title: "點心", isDining: true, options: [
+                        { name: "甘干章魚燒 (かんかん - Kankan)", info: "傳奇章魚燒-口感屬於「極致軟嫩系」。", dish: "章魚燒", addr: "甘干章魚燒 (かんかん - Kankan)", isPrimary: true },
+                            ]},
+{
                         trans: [
                             { type: "🚕", text: "<b>計程車 (短程)</b><br>直達八阪神社 (8min, 1,000円)。", addr: "難波八阪神社" }
                         ]
@@ -589,18 +613,23 @@
                         ]
                     },
 
-                    { time: "12:45", title: "黑門市場午餐 (三選一)", isDining: true, options: [
-                        { name: "石橋食品", info: "40年老字號關東煮。", dish: "軟爛入味大蘿蔔 (長輩小孩首選)。", addr: "石橋食品" },
-                        { name: "黑門三平", info: "現剖海鮮與海膽名店。", dish: "現烤大干貝 / 鮪魚腹肉。", addr: "黒門三平" },
-                        { name: "萬野總本店", info: "精肉店直營和牛燒烤。", dish: "黑毛和牛代客現煎。", addr: "萬野総本店" }
-                    ]},
+                    { time: "12:45", title: "午餐：黑門市場美味巡禮", isDining: true, options: [
+                { name: "石橋食品 / 黑門三平", info: "首選：關東煮(爸姐) + 現切海鮮(母)。", dish: "關東煮 / 鹽烤大干貝", addr: "黒門市場", isPrimary: true },
+                { name: "麵屋 丈六", info: "備案 B：大阪第一黑醬油拉麵。拉麵控必吃。", dish: "中華蕎麥", addr: "麺屋 丈六" },
+                { name: "萬野總本店", info: "備案 C：精肉店現烤和牛。避開昆布最安全。", dish: "黑毛和牛現煎", addr: "萬野総本店" }
+            ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 往道頓堀/心齋橋約 10min。", addr: "固力果看板" }
                         ]
                     },
                     { time: "14:30", title: "道頓堀 / 心齋橋購物", stay: "2hr", guide: "【重點】固力果看板合影。商店街內有 3Coins 與藥妝。<br><b>購鞋提醒：</b> 這裡有大型 ABC-MART 可先偵查 HOKA/NB 鞋款。" },
-                    {
+                    { time: "15:00", title: "點心", isDining: true, options: [
+                        { name: "PABLO 心齋橋店", info: "起司塔甜點，推薦各種口味起司塔。", dish: "起司塔", addr: "PABLO 心齋橋店", isPrimary: true },
+			{ name: "たこ焼道楽 わなか (Wanaka)", info: "備案 B：許多在地人的最愛。特色是表皮極薄且帶微脆，內部呈奶油狀。", dish: "章魚燒", addr: "章魚燒道樂わなか 美國村店" },
+                	{ name: "甲賀流 (Kouryu)", info: "備案 C：「蔥橙醋 (Negi-pon)」口味章魚燒。", dish: "章魚燒", addr: "米其林章魚燒 甲賀流 本店" }
+                            ]},
+			{
                         trans: [
                             { type: "🚇", text: "<b>地鐵御堂筋線</b> (心齋橋 -> 梅田) 6min。", addr: "梅田站" }
                         ]
@@ -616,11 +645,11 @@
                         special: "pokemon", // 標記為寶可夢特別節點
                         time: "17:30", title: "⚡ 寶可夢中心巡禮", guide: "梅田店位於大丸 13F。" 
                     },
-                    { time: "19:00", title: "梅田晚餐 (三選一)", isDining: true, options: [
-                        { name: "備長 鰻魚飯", info: "名古屋流派炭烤。<br>鰻魚飯7F; TNF 5F。", dish: "鰻魚三吃 (一鰻三味)。", addr: "ひつまぶし備長 グランフロント大阪" },
-			{ name: "燒肉力丸", info: "吃到飽和牛燒肉。", dish: "厚切牛舌", addr: "焼肉力丸 梅田"},
-                        { name: "利久牛舌", info: "仙台經典厚切牛舌。", dish: "牛舌極定食配牛尾湯。", addr: "牛たん炭焼 利久 大丸梅田店" }
-                    ]},
+                    { time: "19:00", title: "晚餐：大阪之夜最終章", isDining: true, options: [
+                { name: "備長鰻魚飯 / 燒肉力丸", info: "首選：炭烤鰻魚三吃 或 厚切牛舌燒肉。", dish: "一本鰻 / 燒肉吃到飽", addr: "グランフロント大阪", isPrimary: true },
+                { name: "利久牛舌", info: "備案 B：仙台厚切牛舌。美味穩定，環境寬敞。", dish: "牛舌極定食", addr: "牛たん炭焼 利久 大丸梅田店" },
+                { name: "鴨 to 蔥", info: "備案 C：梅田最新排隊名店。鴨肉鮮甜。", dish: "鴨拉麵", addr: "らぁ麺 鴨と葱 大阪バルチカ03店" }
+            ]},
                     {
                         trans: [
                             { type: "🚆", text: "<b>JR 新快速 (回程)</b><br>大阪站 -> 京都站。<br>時間：約 35 min。", addr: "京都駅" }
@@ -689,21 +718,21 @@
                 <button class="tool-btn" style="width:100%" onclick="showModal('pokemon')">🎮 打開寶可夢專屬導航卡</button>
             </div>
         </div>`;
-    } else if (n.isDining) {
-        // 3. 處理餐廳三選一
-        html += `
+} else if (n.isDining) {
+    html += `
     <div class="timeline-node">
         <div class="node-dot" style="border-color:var(--secondary);"></div>
-        <span class="node-time">🍴 餐廳三選一 (附近)</span>
+        <span class="node-time">🍴 餐廳方案 (首選與即時備案)</span>
         <div class="dining-wrap">
             ${n.options.map(o => `
-                <div class="dining-card">
+                <div class="dining-card ${o.isPrimary ? 'primary-choice' : ''}">
+                    ${o.isPrimary ? '<div class="primary-tag">★ 本日首選</div>' : '<div class="backup-tag">⚡ 即時備案</div>'}
                     <strong>${o.name}</strong><br><small>${o.info}</small>
                     <div style="display:flex; gap:5px; margin-top:8px;">
                         <button class="map-btn" style="flex:1;" onclick="openMap('${o.addr}')">🗺️ 地圖</button>
                         <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${o.name}')">🔍 搜尋</button>
                     </div>
-                    <div class="menu-pill">✨ ${o.dish}</div>
+                    <div class="menu-pill" style="${o.isPrimary ? 'background:#fab005; color:#fff;' : ''}">✨ ${o.dish}</div>
                 </div>
             `).join('')}
         </div>
