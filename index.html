@@ -7,140 +7,401 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>京都導航助理 V9.0</title>
     <style>
+        /* =========================================
+           1. 顏色變數與全域重置設定
+           ========================================= */
         :root {
-            --primary: #FF6B6B; --primary-light: #FF8E8E;
-            --secondary: #4ECDC4; --accent: #FFE66D;
-            --transit: #3498db; --taxi: #f39c12;
-		--baby: #A29BFE; /* 新增寶貝色系 */
-            --bg: #F0F2F5; --card: #FFFFFF;
+            --primary: #FF6B6B; 
+            --primary-light: #FF8E8E;
+            --secondary: #4ECDC4; 
+            --accent: #FFE66D;
+            --transit: #3498db; 
+            --taxi: #f39c12;
+            --baby: #A29BFE; /* 新增寶貝色系 */
+            --bg: #F0F2F5; 
+            --card: #FFFFFF;
             --timeline-line: #dee2e6;
         }
-        * { box-sizing: border-box; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--bg); color: #333; padding-bottom: 60px; overflow-x: hidden; }
 
-        /* --- Header & 標題修正 --- */
+        * { 
+            box-sizing: border-box; 
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        body { 
+            margin: 0; 
+            background: var(--bg); 
+            color: #333; 
+            padding-bottom: 60px; 
+            overflow-x: hidden; 
+        }
+
+        /* =========================================
+           2. 頂部標題區塊 (Header)
+           ========================================= */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white; padding: 65px 20px 45px; text-align: center;
-            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+            color: white; 
+            padding: 65px 20px 45px; 
+            text-align: center;
+            border-bottom-left-radius: 40px; 
+            border-bottom-right-radius: 40px;
             box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
         }
-        .app-title { font-size: 26px; font-weight: 900; letter-spacing: 2px; margin: 0; }
-        .app-subtitle { font-size: 13px; opacity: 0.85; margin-top: 8px; display: block; }
 
-        /* --- 活潑 Day 導航 (泡泡風格) --- */
-        .day-nav {
-            display: flex; justify-content: space-between;
-            margin: -25px 15px 15px; background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px); border-radius: 20px;
-            padding: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative; z-index: 100;
+        .app-title { 
+            font-size: 26px; 
+            font-weight: 900; 
+            letter-spacing: 2px; 
+            margin: 0; 
         }
+
+        .app-subtitle { 
+            font-size: 13px; 
+            opacity: 0.85; 
+            margin-top: 8px; 
+            display: block; 
+        }
+
+        /* =========================================
+           3. 活潑 Day 導航 (泡泡風格)
+           ========================================= */
+        .day-nav {
+            display: flex; 
+            justify-content: space-between;
+            margin: -25px 15px 15px; 
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px); 
+            border-radius: 20px;
+            padding: 8px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative; 
+            z-index: 100;
+        }
+
         .day-nav button {
-            flex: 1; border: none; background: none; padding: 12px 5px;
-            font-weight: bold; color: #adb5bd; font-size: 15px;
+            flex: 1; 
+            border: none; 
+            background: none; 
+            padding: 12px 5px;
+            font-weight: bold; 
+            color: #adb5bd; 
+            font-size: 15px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-radius: 15px;
         }
+
         .day-nav button.active {
-            color: white; background: var(--primary);
+            color: white; 
+            background: var(--primary);
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
             transform: scale(1.05);
         }
 
-        /* --- 快捷工具 --- */
-        .tool-bar { display: flex; flex-wrap: wrap; justify-content: space-around; padding: 0 15px 20px; gap: 10px; }
+        /* =========================================
+           4. 快捷工具列 (Tool Bar)
+           ========================================= */
+        .tool-bar { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: space-around; 
+            padding: 0 15px 20px; 
+            gap: 10px; 
+        }
+
         .tool-btn {
-            flex: 1 1 45%; padding: 12px; border-radius: 15px; border: none;
-            background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            font-size: 13px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 6px;
+            flex: 1 1 45%; 
+            padding: 12px; 
+            border-radius: 15px; 
+            border: none;
+            background: white; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-size: 13px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px;
         }
 
-        /* --- 時間軸核心排版修正 --- */
-        .day-main-title { padding: 0 25px; margin: 15px 0 5px; font-size: 22px; font-weight: 900; color: #222; line-height: 1.4; }
-        .timeline-container { padding: 10px 15px 30px; position: relative; }
+        /* =========================================
+           5. 時間軸核心排版
+           ========================================= */
+        .day-main-title { 
+            padding: 0 25px; 
+            margin: 15px 0 5px; 
+            font-size: 22px; 
+            font-weight: 900; 
+            color: #222; 
+            line-height: 1.4; 
+        }
+
+        .timeline-container { 
+            padding: 10px 15px 30px; 
+            position: relative; 
+        }
+
         /* 導航線只在節點區間出現，不與大標題重疊 */
-        .timeline-line { position: absolute; left: 30px; top: 20px; bottom: 0; width: 3px; background: var(--timeline-line); z-index: 1; }
-
-        .timeline-node { position: relative; padding-left: 50px; margin-bottom: 35px; z-index: 2; }
-        .node-dot { position: absolute; left: 10px; top: 6px; width: 16px; height: 16px; background: white; border: 4px solid var(--primary); border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1); }
-        .node-time { font-size: 14px; font-weight: 900; color: var(--primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-        .node-stay { font-size: 11px; background: #e6fcf5; color: #099268; padding: 2px 8px; border-radius: 6px; font-weight: bold; }
-        
-        /* --- 卡片設計 --- */
-        .card { background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.02); }
-        .node-title { font-size: 19px; font-weight: bold; color: #222; margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; }
-        .guide-box { background: #fffcf0; border-left: 5px solid var(--accent); padding: 15px; font-size: 14px; line-height: 1.7; margin: 12px 0; border-radius: 8px; color: #555; }
-        
-        /* --- 交通區塊優化 --- */
-        .trans-divider { margin: 15px 0 25px 50px; }
-        .trans-card { background: #f8f9fa; border-radius: 15px; padding: 15px; font-size: 13px; border: 1px solid #e9ecef; }
-        .trans-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-        .trans-row:last-child { margin-bottom: 0; }
-        .trans-icon { font-size: 18px; width: 24px; text-align: center; }
-        .trans-text { flex: 1; line-height: 1.5; color: #495057; }
-        
-        /* 導航按鈕樣式 */
-        .map-btn {
-            display: inline-flex; align-items: center; gap: 5px;
-            background: #e7f5ff; color: var(--transit); border: none;
-            padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; margin-top: 8px;
+        .timeline-line { 
+            position: absolute; 
+            left: 30px; 
+            top: 20px; 
+            bottom: 0; 
+            width: 3px; 
+            background: var(--timeline-line); 
+            z-index: 1; 
         }
 
-        /* --- 餐廳輪播 --- */
-        .dining-wrap { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0; scroll-snap-type: x mandatory; }
-        .dining-card { flex: 0 0 88%; background: #fff; border-radius: 18px; padding: 20px; border: 1px solid #f1f3f5; box-shadow: 0 4px 15px rgba(0,0,0,0.05); scroll-snap-align: start; }
+        .timeline-node { 
+            position: relative; 
+            padding-left: 50px; 
+            margin-bottom: 35px; 
+            z-index: 2; 
+        }
+
+        .node-dot { 
+            position: absolute; 
+            left: 10px; 
+            top: 6px; 
+            width: 16px; 
+            height: 16px; 
+            background: white; 
+            border: 4px solid var(--primary); 
+            border-radius: 50%; 
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1); 
+        }
+
+        .node-time { 
+            font-size: 14px; 
+            font-weight: 900; 
+            color: var(--primary); 
+            margin-bottom: 6px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+
+        .node-stay { 
+            font-size: 11px; 
+            background: #e6fcf5; 
+            color: #099268; 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+        }
+        
+        /* =========================================
+           6. 卡片設計與導航提示框
+           ========================================= */
+        .card { 
+            background: var(--card); 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06); 
+            border: 1px solid rgba(0,0,0,0.02); 
+        }
+
+        .node-title { 
+            font-size: 19px; 
+            font-weight: bold; 
+            color: #222; 
+            margin: 0 0 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+
+        .guide-box { 
+            background: #fffcf0; 
+            border-left: 5px solid var(--accent); 
+            padding: 15px; 
+            font-size: 14px; 
+            line-height: 1.7; 
+            margin: 12px 0; 
+            border-radius: 8px; 
+            color: #555; 
+        }
+        
+        /* =========================================
+           7. 交通區塊優化
+           ========================================= */
+        .trans-divider { 
+            margin: 15px 0 25px 50px; 
+        }
+
+        .trans-card { 
+            background: #f8f9fa; 
+            border-radius: 15px; 
+            padding: 15px; 
+            font-size: 13px; 
+            border: 1px solid #e9ecef; 
+        }
+
+        .trans-row { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 12px; 
+            margin-bottom: 12px; 
+        }
+
+        .trans-row:last-child { 
+            margin-bottom: 0; 
+        }
+
+        .trans-icon { 
+            font-size: 18px; 
+            width: 24px; 
+            text-align: center; 
+        }
+
+        .trans-text { 
+            flex: 1; 
+            line-height: 1.5; 
+            color: #495057; 
+        }
+        
+        .map-btn {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 5px;
+            background: #e7f5ff; 
+            color: var(--transit); 
+            border: none;
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            margin-top: 8px;
+        }
+
+        /* =========================================
+           8. 餐廳輪播與標籤樣式
+           ========================================= */
+        .dining-wrap { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 15px; 
+            padding: 10px 0; 
+            scroll-snap-type: x mandatory; 
+        }
+
+        .dining-card { 
+            flex: 0 0 88%; 
+            background: #fff; 
+            border-radius: 18px; 
+            padding: 20px; 
+            border: 1px solid #f1f3f5; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            scroll-snap-align: start; 
+        }
+
         /* 首選餐廳強調樣式 */
-	.primary-choice {
-	    background: #fff9db !important; /* 黃金底色 */
-	    border: 2px solid #fab005 !important;
-	    transform: scale(1.02);
-	    box-shadow: 0 6px 15px rgba(250, 176, 5, 0.2);
-	}
-	.primary-tag {
-	    background: #fab005;
-	    color: white;
-	    padding: 2px 8px;
-	    border-radius: 4px;
-	    font-size: 11px;
-	    font-weight: bold;
-	    margin-bottom: 5px;
-	    display: inline-block;
-	}
-	.backup-tag {
-	    background: #adb5bd;
-	    color: white;
-	    padding: 2px 8px;
-	    border-radius: 4px;
-	    font-size: 11px;
-	    font-weight: bold;
-	    margin-bottom: 5px;
-	    display: inline-block;
-	}
-	/* 地區顏色標籤 */
-	.card-kyoto { border-left: 5px solid #e67e22 !important; } /* 橘紅色：象徵京都的古色古香 */
-	.card-osaka { border-left: 5px solid #3498db !important; } /* 亮藍色：象徵大阪的現代活力 */
+        .primary-choice {
+            background: #fff9db !important; /* 黃金底色 */
+            border: 2px solid #fab005 !important;
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(250, 176, 5, 0.2);
+        }
 
-.region-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 5px;
-    font-size: 11px;
-    color: white;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.badge-kyoto { background-color: #e67e22; }
-.badge-osaka { background-color: #3498db; }
+        .primary-tag {
+            background: #fab005;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
 
-	.menu-pill { display: inline-block; background: #fff4e6; color: #d35400; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 8px; margin-top: 10px; }
+        .backup-tag {
+            background: #adb5bd;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
 
-        /* --- 功能模組 --- */
-        .modal { position: fixed; inset: 0; background: white; z-index: 2000; display: none; padding: 35px 20px; overflow-y: auto; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .close-x { position: fixed; top: 25px; right: 25px; font-size: 32px; font-weight: 300; cursor: pointer; color: #aaa; }
-        .sos-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        #toast { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 12px 30px; border-radius: 30px; font-size: 14px; display: none; z-index: 3000; }
+        /* 地區顏色標籤 */
+        .card-kyoto { border-left: 5px solid #e67e22 !important; } /* 橘紅色：象徵京都的古色古香 */
+        .card-osaka { border-left: 5px solid #3498db !important; } /* 亮藍色：象徵大阪的現代活力 */
+
+        .region-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .badge-kyoto { background-color: #e67e22; }
+        .badge-osaka { background-color: #3498db; }
+
+        .menu-pill { 
+            display: inline-block; 
+            background: #fff4e6; 
+            color: #d35400; 
+            font-size: 12px; 
+            font-weight: bold; 
+            padding: 4px 10px; 
+            border-radius: 8px; 
+            margin-top: 10px; 
+        }
+
+        /* =========================================
+           9. 功能模組 (Modal) 與提示窗
+           ========================================= */
+        .modal { 
+            position: fixed; 
+            inset: 0; 
+            background: white; 
+            z-index: 2000; 
+            display: none; 
+            padding: 35px 20px; 
+            overflow-y: auto; 
+            animation: slideUp 0.3s ease-out; 
+        }
+
+        @keyframes slideUp { 
+            from { transform: translateY(100%); } 
+            to { transform: translateY(0); } 
+        }
+
+        .close-x { 
+            position: fixed; 
+            top: 25px; 
+            right: 25px; 
+            font-size: 32px; 
+            font-weight: 300; 
+            cursor: pointer; 
+            color: #aaa; 
+        }
+
+        .sos-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 15px; 
+        }
+
+        #toast { 
+            position: fixed; 
+            bottom: 50px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(0,0,0,0.8); 
+            color: white; 
+            padding: 12px 30px; 
+            border-radius: 30px; 
+            font-size: 14px; 
+            display: none; 
+            z-index: 3000; 
+        }
     </style>
 </head>
 <body>
@@ -161,10 +422,10 @@
     <div class="tool-bar">
         <button class="tool-btn" onclick="showModal('diet')">🚫 飲食禁忌</button>
         <button class="tool-btn" onclick="showModal('entry')">📄 入境參考</button>
-	<button class="tool-btn" onclick="showModal('shopping')"style="background:#e7f5ff; border:1px solid #ff9ff3; ">🛍️ 購物清單</button>	
-	<button class="tool-btn" onclick="showModal('food')" style="background:#fff9db;">🍱 美食地圖</button>
+        <button class="tool-btn" onclick="showModal('shopping')" style="background:#e7f5ff; border:1px solid #ff9ff3;">🛍️ 購物清單</button>	
+        <button class="tool-btn" onclick="showModal('food')" style="background:#fff9db;">🍱 美食地圖</button>
         <button class="tool-btn" onclick="showModal('sos')" style="color:#E63946">🆘 SOS 救助</button>
-	<button class="tool-btn" onclick="showModal('pokemon')" style="background:#fff0f6; border:1px solid #ff9ff3;">⚡ 寶可夢中心</button>
+        <button class="tool-btn" onclick="showModal('pokemon')" style="background:#fff0f6; border:1px solid #ff9ff3;">⚡ 寶可夢中心</button>
     </div>
 
     <div id="dayTitleContainer"></div>
@@ -177,6 +438,7 @@
     <div id="diet-modal" class="modal">
         <span class="close-x" onclick="hideModal('diet')">✕</span>
         <h2 style="color:var(--primary); margin-bottom: 25px;">🚫 點餐溝通卡</h2>
+        
         <div class="guide-box">
             <strong>母親禁食：昆布、海藻、海苔</strong><br>
             關鍵字：昆布だし (Kombu Dashi)、わかめ (Wakame)、海苔 (Nori)。
@@ -186,7 +448,8 @@
             <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">ヨウ素を制限しています。昆布、わかめ、海苔、または昆布だしを使用していない料理はありますか？</p>
             <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
         </div>
-	<div class="guide-box">
+        
+        <div class="guide-box">
             <strong>🥩 燒肉要求 (鹽味)</strong><br>
             關鍵字：お肉はすべて「塩」でお願いします。
         </div>
@@ -195,7 +458,8 @@
             <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">全ての肉を「塩」でお願いします。 </p>
             <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
         </div>
-	<div class="guide-box">
+        
+        <div class="guide-box">
             <strong>請不要使用昆布高湯或相關調味</strong><br>
             關鍵字：昆布だしを使わないでください
         </div>
@@ -204,22 +468,19 @@
             <p style="font-size: 19px; line-height: 1.6; font-weight: bold;">昆布だしを使わないでください</p>
             <span style="color:var(--primary); font-size:12px;">📋 點擊複製日文訊息</span>
         </div>
-
     </div>
 
     <div id="food-modal" class="modal">
-    	<span class="close-x" onclick="hideModal('food')">✕</span>
-    	<h2 style="color:#d35400;">🍱 關西美食總覽</h2>
-    	<p style="font-size: 13px; color: #666; margin-bottom: 20px;">包含行程推薦與口袋收藏名單</p>
+        <span class="close-x" onclick="hideModal('food')">✕</span>
+        <h2 style="color:#d35400;">🍱 關西美食總覽</h2>
+        <p style="font-size: 13px; color: #666; margin-bottom: 20px;">包含行程推薦與口袋收藏名單</p>
     
-    	<div id="foodListContainer">
-    </div>
+        <div id="foodListContainer"></div>
     
-    <div class="guide-box" style="margin-top:20px; background:#fff5f5;">
-        💡 <b>小撇步：</b> 建議熱門餐廳（如備長鰻魚飯）提前 30 分鐘去現場取號。
+        <div class="guide-box" style="margin-top:20px; background:#fff5f5;">
+            💡 <b>小撇步：</b> 建議熱門餐廳（如備長鰻魚飯）提前 30 分鐘去現場取號。
+        </div>
     </div>
-</div>
-
 
     <div id="entry-modal" class="modal">
         <span class="close-x" onclick="hideModal('entry')">✕</span>
@@ -234,92 +495,91 @@
     </div>
 
     <div id="shopping-modal" class="modal">
-    <span class="close-x" onclick="hideModal('shopping')">✕</span>
-    <h2 style="color:var(--transit); margin-bottom: 25px;">🛍️ 任務清單 & 最佳時機</h2>
-    
-    <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
-        <p><strong>👟 功能性運動鞋 (重點任務)</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 4 大阪梅田 (LUCUA / Grand Front)</p>
-        <ul style="font-size:14px; padding-left:20px;">
-            <li>New Balance (9060 涼鞋)</li>
-            <li>HOKA (ORA PRIMO)</li>
-            <li>On (Cloudsurfer Max)</li>
-            <li>TNF (紫標)</li>
-            <li>Workman</li>
-        </ul>
-        <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
-	<button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
-	<button class="map-btn" onclick="openMap('THE NORTH FACE+ GRAND FRONT Osaka Store')">🗺️ 導航至 TNF 梅田</button>
-	<button class="map-btn" onclick="openMap('WORKMAN Shose')">🗺️ 導航至 WORKMAN Shose 京都 AEON 3F</button>
-	<button class="map-btn" onclick="openMap('WORKMAN Girl')">🗺️ 導航至 WORKMAN Girl 大阪</button>
-    </div>
-
-	<div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
-            </p><div class="shop-tag" style="background:#fff0f6; color:#e64980;">✨ IP 泡澡球 & 驚喜禮物</div></p>
-            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 4 梅田 Kiddy Land</p>
-            <ul style="font-size:14px; padding-left:20px;">
-            	<li>母嬰用品</li>
-            	<li>泡澡球</li>            	
-        </ul>
-		<button class="map-btn" onclick="openMap('Kiddy Land')">🗺️ 導航至 Kiddy Land</button>
-		<button class="map-btn" onclick="openMap('Akachan Honpo (阿卡將本舖)')">🗺️ 導航至 Akachan</button>
-    </div>    
-    
-    <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
-        <p><strong>👗 生活雜貨</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
-        <ul style="font-size:14px; padding-left:20px;">
-            <li>Uniqlo </li>
-            <li>GU </li>
-            <li>3Coins </li>
-            <li>無印良品 (網布筆筒/精華液)</li>
-            <li>Standard Product</li>
-        </ul>
-	<button class="map-btn" onclick="openMap('Uniqlo')">🗺️ 導航至 Uniqlo</button>
-	<button class="map-btn" onclick="openMap('GU')">🗺️ 導航至 GU</button>
-	<button class="map-btn" onclick="openMap('3Coins')">🗺️ 導航至 3Coins</button>
-	<button class="map-btn" onclick="openMap('無印良品')">🗺️ 導航至 Muji</button>
-	<button class="map-btn" onclick="openMap('StandardProduct')">🗺️ 導航至 StandardProduct</button>
-    </div>
+        <span class="close-x" onclick="hideModal('shopping')">✕</span>
+        <h2 style="color:var(--transit); margin-bottom: 25px;">🛍️ 任務清單 & 最佳時機</h2>
         
-    <div class="card" style="margin-bottom:15px; border-left: 5px solid #f39c12;">
-        <p><strong>💊 藥妝與常備藥</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
-        <ul style="font-size:14px; padding-left:20px;">
-            <li>エスエス製薬（新エスタック顆粒 (Shin Estac Granules)</li>
-	    <li>Wakamoto 若元錠</li>
-            <li>休足時間 (今晚就能用！)</li>
-            <li>合利他命 EX Plus</li>
-        </ul>
-        <button class="map-btn" onclick="openMap('心齋橋')">🗺️ 導航至 心齋橋</button>
-        <button class="map-btn" onclick="openMap('新京極商店街')">🗺️ 導航至新京極</button>
-    </div>	
+        <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
+            <p><strong>👟 功能性運動鞋 (重點任務)</strong></p>
+            <p style="font-size:13px; color:#666;">時機：Day 4 大阪梅田 (LUCUA / Grand Front)</p>
+            <ul style="font-size:14px; padding-left:20px;">
+                <li>New Balance (9060 涼鞋)</li>
+                <li>HOKA (ORA PRIMO)</li>
+                <li>On (Cloudsurfer Max)</li>
+                <li>TNF (紫標)</li>
+                <li>Workman</li>
+            </ul>
+            <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
+            <button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
+            <button class="map-btn" onclick="openMap('THE NORTH FACE+ GRAND FRONT Osaka Store')">🗺️ 導航至 TNF 梅田</button>
+            <button class="map-btn" onclick="openMap('WORKMAN Shose')">🗺️ 導航至 WORKMAN Shose 京都 AEON 3F</button>
+            <button class="map-btn" onclick="openMap('WORKMAN Girl')">🗺️ 導航至 WORKMAN Girl 大阪</button>
+        </div>
 
-    <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
-        <p><strong>🍵 必買伴手禮</strong></p>
-        <p style="font-size:13px; color:#666;">時機：Day 5 京都車站 Porta</p>
-        <ul style="font-size:14px; padding-left:20px;">
-            <li>阿闍梨餅 (軟Q紅豆餡)</li>
-            <li>MALEBRANCHE 茶之菓 (抹茶巧克力)</li>
-            <li>小倉山莊 (仙貝)</li>
-        </ul>
-        <button class="map-btn" onclick="openMap('京都駅 Porta')">🗺️ 導航至京都駅 Porta</button>
+        <div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
+            <div class="shop-tag" style="background:#fff0f6; color:#e64980; display:inline-block; padding:2px 8px; border-radius:4px;">✨ IP 泡澡球 & 驚喜禮物</div>
+            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 4 梅田 Kiddy Land</b></p>
+            <ul style="font-size:14px; padding-left:20px;">
+                <li>母嬰用品</li>
+                <li>泡澡球</li>            	
+            </ul>
+            <button class="map-btn" onclick="openMap('Kiddy Land')">🗺️ 導航至 Kiddy Land</button>
+            <button class="map-btn" onclick="openMap('Akachan Honpo (阿卡將本舖)')">🗺️ 導航至 Akachan</button>
+        </div>    
+        
+        <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
+            <p><strong>👗 生活雜貨</strong></p>
+            <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
+            <ul style="font-size:14px; padding-left:20px;">
+                <li>Uniqlo </li>
+                <li>GU </li>
+                <li>3Coins </li>
+                <li>無印良品 (網布筆筒/精華液)</li>
+                <li>Standard Product</li>
+            </ul>
+            <button class="map-btn" onclick="openMap('Uniqlo')">🗺️ 導航至 Uniqlo</button>
+            <button class="map-btn" onclick="openMap('GU')">🗺️ 導航至 GU</button>
+            <button class="map-btn" onclick="openMap('3Coins')">🗺️ 導航至 3Coins</button>
+            <button class="map-btn" onclick="openMap('無印良品')">🗺️ 導航至 Muji</button>
+            <button class="map-btn" onclick="openMap('StandardProduct')">🗺️ 導航至 StandardProduct</button>
+        </div>
+            
+        <div class="card" style="margin-bottom:15px; border-left: 5px solid #f39c12;">
+            <p><strong>💊 藥妝與常備藥</strong></p>
+            <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
+            <ul style="font-size:14px; padding-left:20px;">
+                <li>エスエス製薬（新エスタック顆粒 (Shin Estac Granules)</li>
+                <li>Wakamoto 若元錠</li>
+                <li>休足時間 (今晚就能用！)</li>
+                <li>合利他命 EX Plus</li>
+            </ul>
+            <button class="map-btn" onclick="openMap('心齋橋')">🗺️ 導航至 心齋橋</button>
+            <button class="map-btn" onclick="openMap('新京極商店街')">🗺️ 導航至新京極</button>
+        </div>	
+
+        <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
+            <p><strong>🍵 必買伴手禮</strong></p>
+            <p style="font-size:13px; color:#666;">時機：Day 5 京都車站 Porta</p>
+            <ul style="font-size:14px; padding-left:20px;">
+                <li>阿闍梨餅 (軟Q紅豆餡)</li>
+                <li>MALEBRANCHE 茶之菓 (抹茶巧克力)</li>
+                <li>小倉山莊 (仙貝)</li>
+            </ul>
+            <button class="map-btn" onclick="openMap('京都駅 Porta')">🗺️ 導航至京都駅 Porta</button>
+        </div>
     </div>
-</div>
 
-<div id="pokemon-modal" class="modal">
+    <div id="pokemon-modal" class="modal">
         <span class="close-x" onclick="hideModal('pokemon')">✕</span>
         <h2 style="color:#e63946; margin-bottom: 25px;">⚡ 寶可夢中心快速導航</h2>
         <div class="sos-grid">
-       	
-	     <div class="card" style="border-left: 5px solid #ffcb05;">
+            <div class="card" style="border-left: 5px solid #ffcb05;">
                 <p><strong>【京都店】Pokémon Center Osaka</strong><br>
                 <small>地點：SUINA室町 2F</small></p>
                 <p style="font-size:12px; color:#666;">適合當前：錦市場巡禮時同步前往。</p>
                 <button class="map-btn" onclick="openMap('ポケモンセンターキョウト')">📍 開啟京都店導航</button>
             </div>
                  
-	     <div class="card" style="border-left: 5px solid #003a70;">
+            <div class="card" style="border-left: 5px solid #003a70;">
                 <p><strong>【梅田店】Pokémon Center Osaka</strong><br>
                 <small>地點：大丸梅田店 13F</small></p>
                 <p style="font-size:12px; color:#666;">適合當前：梅田購鞋行程中同步前往。</p>
@@ -360,64 +620,28 @@
     <div id="toast">已複製</div>
 
     <script>
-	
-	// --- 自定義美食口袋名單 (可隨時擴充) ---
-	const foodListData = [
-	{ name: "五行拉麵 (Gogyo)", info: "著名的焦香黑味噌拉麵。", dish: "焦がし味噌ラーメン", addr: "京都 五行", region: "Kyoto" },
-	    { name: "茶寮都路里", info: "超人氣抹茶甜點名店。", dish: "特選都路里冰淇淋", addr: "茶寮都路里 祇園本店", region: "Kyoto" },
-	    { name: "燒肉力丸", info: "吃到飽和牛燒肉。", dish: "厚切牛舌", addr: "焼肉力丸 梅田", region: "Osaka" },
-    { 
-        name: "挽肉與米 京都店", 
-        info: "祇園古宅內的炭火現烤漢堡排，米飯極致美味。", 
-        dish: "挽肉與米套餐 (3 顆漢堡排)", 
-        addr: "挽肉と米" , region: "Kyoto"
-    },
-    { 
-        name: "鴨 to 蔥 大阪梅田店", 
-        info: "湯頭僅用鴨、蔥、水熬製，梅田最新分店。", 
-        dish: "鴨拉麵 / 飲める親子丼", 
-        addr: "らぁ麺 鴨と葱" , region: "Osaka"
-    },
-{ 
-        name: "本家 第一旭", 
-        info: "京都排隊傳說，清爽不油膩的經典醬油豬骨。", 
-        dish: "特製拉麵 (叉燒加量)", 
-        addr: "本家 第一旭 本店", 
-        region: "Kyoto" 
-    },
-    { 
-        name: "吟醸らーめん 久保田", 
-        info: "飯店附近的沾麵王者，濃厚味噌香氣十足。", 
-        dish: "吟釀味噌沾麵", 
-        addr: "吟醸らーめん 久保田", 
-        region: "Kyoto" 
-    },
-    { 
-        name: "麵屋 聖 (Menya Kiro)", 
-        info: "時尚、乾淨，主打鮮美的貝類湯頭拉麵。", 
-        dish: "淡竹 (貝類系醬油拉麵)", 
-        addr: "麺屋 聖", 
-        region: "Kyoto" 
-    },
-{ 
-        name: "京の焼肉處 弘", 
-        info: "京都超人氣名店，每日採購整頭牛，肉質鮮甜。", 
-        dish: "今晚的精選拼盤 (和牛拼盤)", 
-        addr: "京の焼肉 弘", 
-        region: "Kyoto" 
-    },
-    { 
-        name: "あぶりや (Aburiya)", 
-        info: "大阪極受歡迎的國產牛吃到飽，環境對小孩極友善。", 
-        dish: "國產牛吃到飽方案 / 聖代甜點", 
-        addr: "あぶりや 梅田店", 
-        region: "Osaka" 
-    },
+        /**
+         * 自定義美食口袋名單 (可隨時擴充)
+         */
+        const foodListData = [
+            { name: "五行拉麵 (Gogyo)", info: "著名的焦香黑味噌拉麵。", dish: "焦がし味噌ラーメン", addr: "京都 五行", region: "Kyoto" },
+            { name: "茶寮都路里", info: "超人氣抹茶甜點名店。", dish: "特選都路里冰淇淋", addr: "茶寮都路里 祇園本店", region: "Kyoto" },
+            { name: "燒肉力丸", info: "吃到飽和牛燒肉。", dish: "厚切牛舌", addr: "焼肉力丸 梅田", region: "Osaka" },
+            { name: "挽肉與米 京都店", info: "祇園古宅內的炭火現烤漢堡排，米飯極致美味。", dish: "挽肉與米套餐 (3 顆漢堡排)", addr: "挽肉と米", region: "Kyoto" },
+            { name: "鴨 to 蔥 大阪梅田店", info: "湯頭僅用鴨、蔥、水熬製，梅田最新分店。", dish: "鴨拉麵 / 飲める親子丼", addr: "らぁ麺 鴨と葱", region: "Osaka" },
+            { name: "本家 第一旭", info: "京都排隊傳說，清爽不油膩的經典醬油豬骨。", dish: "特製拉麵 (叉燒加量)", addr: "本家 第一旭 本店", region: "Kyoto" },
+            { name: "吟醸らーめん 久保田", info: "飯店附近的沾麵王者，濃厚味噌香氣十足。", dish: "吟釀味噌沾麵", addr: "吟醸らーめん 久保田", region: "Kyoto" },
+            { name: "麵屋 聖 (Menya Kiro)", info: "時尚、乾淨，主打鮮美的貝類湯頭拉麵。", dish: "淡竹 (貝類系醬油拉麵)", addr: "麺屋 聖", region: "Kyoto" },
+            { name: "京の焼肉處 弘", info: "京都超人氣名店，每日採購整頭牛，肉質鮮甜。", dish: "今晚的精選拼盤 (和牛拼盤)", addr: "京の焼肉 弘", region: "Kyoto" },
+            { name: "あぶりや (Aburiya)", info: "大阪極受歡迎的國產牛吃到飽，環境對小孩極友善。", dish: "國產牛吃到飽方案 / 聖代甜點", addr: "あぶりや 梅田店", region: "Osaka" },
+            // 您可以在此繼續增加...
+        ];
 
-	    // 您可以在此繼續增加...
-	];
+        let currentDay = 1; // 確保系統知道現在是哪一天
 
-	let currentDay = 1; // 確保系統知道現在是哪一天
+        /**
+         * 每日行程結構資料
+         */
         const tripData = {
             1: {
                 title: "初探古都：生活氣息與夜晚神域",
@@ -442,10 +666,10 @@
                         ]
                     },
                     { time: "18:00", title: "晚餐：名代豬排與寺町散策", isDining: true, options: [
-                { name: "名代豬排 (かつくら)", info: "首選：京都豬排巔峰。請母親避開醬汁沾鹽吃。", dish: "精品豬排定食", addr: "名代とんかつ かつくら 四条寺町店", isPrimary: true },
-                { name: "亮昌餃子 (高辻店)", info: "備案 B：京都特有和風餃子。步行極近、美味度高。", dish: "煎餃套餐", addr: "ぎょうざ処 亮昌 高辻店" },
-                { name: "五行拉麵 (Gogyo)", info: "備案 C：焦香黑味噌。獨特的焦燻味，拉麵迷首選。", dish: "焦がし味噌ラーメン", addr: "京都 五行" }
-            ]},
+                        { name: "名代豬排 (かつくら)", info: "首選：京都豬排巔峰。請母親避開醬汁沾鹽吃。", dish: "精品豬排定食", addr: "名代とんかつ かつくら 四条寺町店", isPrimary: true },
+                        { name: "亮昌餃子 (高辻店)", info: "備案 B：京都特有和風餃子。步行極近、美味度高。", dish: "煎餃套餐", addr: "ぎょうざ処 亮昌 高辻店" },
+                        { name: "五行拉麵 (Gogyo)", info: "備案 C：焦香黑味噌。獨特的焦燻味，拉麵迷首選。", dish: "焦がし味噌ラーメン", addr: "京都 五行" }
+                    ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 穿過四條大橋到底即達。", addr: "八坂神社" }
@@ -478,10 +702,10 @@
                     },
                     { time: "11:30", title: "渡月橋", stay: "45min", guide: "【地標】意為「月亮過橋」。河濱有長椅可讓長輩坐著休息觀景。" },
                     { time: "12:00", title: "午餐：嵐山豆腐饗宴", isDining: true, options: [
-                { name: "嵯峨豆腐 稻", info: "首選：清爽豆腐料理，母親最安全且美味的選擇。", dish: "湯豆腐定食", addr: "嵯峨豆腐 稻 本店", isPrimary: true },
-                { name: "鯛匠 HANANA", info: "備案 B：鯛魚茶泡飯名店。美味程度京都一流。", dish: "鯛魚三吃", addr: "Taisho HANANA" },
-                { name: "嵐山 廣川", info: "備案 C：米其林鰻魚。若有預約到則為首選。", dish: "蒲燒鰻魚重", addr: "鰻魚屋 廣川" }
-            ]},
+                        { name: "嵯峨豆腐 稻", info: "首選：清爽豆腐料理，母親最安全且美味的選擇。", dish: "湯豆腐定食", addr: "嵯峨豆腐 稻 本店", isPrimary: true },
+                        { name: "鯛匠 HANANA", info: "備案 B：鯛魚茶泡飯名店。美味程度京都一流。", dish: "鯛魚三吃", addr: "Taisho HANANA" },
+                        { name: "嵐山 廣川", info: "備案 C：米其林鰻魚。若有預約到則為首選。", dish: "蒲燒鰻魚重", addr: "鰻魚屋 廣川" }
+                    ]},
                     {
                         trans: [
                             { type: "🚌", text: "<b>公車</b> 往金閣寺(50min)。", addr: "金閣寺" },
@@ -491,23 +715,17 @@
                     { time: "15:00", title: "金閣寺 (鹿苑寺)", addr: "京都市北区金閣寺町1", stay: "1hr", guide: "【視覺】外牆純金箔。下午 3 點陽光斜射在舍利殿上最燦爛。" },
                     {
                         trans: [
-			{ type: "🚌", text: "<b>公車 </b> 往靈光殿天滿宮(25min)，特色御守二選一。", addr: "靈光殿天滿宮" },
-			{ type: "🚌", text: "<b>公車 </b> 往御金神社(35min)，特色御守二選一。", addr: "御金神社" },
-			{ type: "🚌", text: "<b>公車 </b> 往AEON MALL KYOTO(50min)。", addr: "AEON MALL KYOTO" }
+                            { type: "🚌", text: "<b>公車 </b> 往靈光殿天滿宮(25min)，特色御守二選一。", addr: "靈光殿天滿宮" },
+                            { type: "🚌", text: "<b>公車 </b> 往御金神社(35min)，特色御守二選一。", addr: "御金神社" },
+                            { type: "🚌", text: "<b>公車 </b> 往AEON MALL KYOTO(50min)。", addr: "AEON MALL KYOTO" }
                         ]
                     },
-                    { 
-                        time: "17:30", 
-                        title: "🛍️ AEON MALL KYOTO 逛街", 
-                        addr: "AEON MALL KYOTO", 
-                        stay: "3hr", 
-                        guide: "<b>重點商店</b>：阿卡將 (Akachan Honpo)、WorkmanGirl、3Coins、無印良品、UNIQLO。" 
-                    },
+                    { time: "17:30", title: "🛍️ AEON MALL KYOTO 逛街", addr: "AEON MALL KYOTO", stay: "3hr", guide: "<b>重點商店</b>：阿卡將 (Akachan Honpo)、WorkmanGirl、3Coins、無印良品、UNIQLO。" },
                     { time: "18:30", title: "晚餐：頂級和牛體驗", isDining: true, options: [
-                { name: "京の焼肉處 弘", info: "首選：京都燒肉代名詞。點「鹽味」避開昆布醬汁。", dish: "今晚精選拼盤", addr: "京の焼肉 弘 三条木屋町店", isPrimary: true },
-                { name: "先斗町 Kappa 壽司", info: "備案 B：鴨川河畔壽司。食材新鮮度極佳。", dish: "板前握壽司", addr: "先斗町 かっぱ寿司" },
-                { name: "Moritaya (森田屋)", info: "備案 C：百年牛肉店，亦可選擇牛排避開昆布。", dish: "和牛牛排", addr: "モリタ屋 満月店" }
-            ]}
+                        { name: "京の焼肉處 弘", info: "首選：京都燒肉代名詞。點「鹽味」避開昆布醬汁。", dish: "今晚精選拼盤", addr: "京の焼肉 弘 三条木屋町店", isPrimary: true },
+                        { name: "先斗町 Kappa 壽司", info: "備案 B：鴨川河畔壽司。食材新鮮度極佳。", dish: "板前握壽司", addr: "先斗町 かっぱ寿司" },
+                        { name: "Moritaya (森田屋)", info: "備案 C：百年牛肉店，亦可選擇牛排避開昆布。", dish: "和牛牛排", addr: "モリタ屋 満月店" }
+                    ]}
                 ]
             },
             3: {
@@ -520,13 +738,12 @@
                         ]
                     },
                     { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。吉伊卡哇本舖" },
-                    
-			{ time: "11:30", title: "午餐：伏見稻荷老鋪", isDining: true, options: [
-                { name: "祢ざめ家 (Nezameya)", info: "首選：豐臣秀吉命名。母親建議點『鹽烤鯖魚』。", dish: "炭烤鰻魚 / 鯖魚壽司", addr: "祢ざめ家", isPrimary: true },
-                { name: "道步 (Doppo)", info: "備案 B：精緻京料理。環境舒適，適合長輩休憩。", dish: "京彩箱套餐", addr: "伏見稲荷 京料理 道歩" },
-                { name: "Kendon-ya", info: "備案 C：手打烏龍麵。麵條極美味，人潮較少。", dish: "手打烏龍麵", addr: "けんどん屋" }
-            ]},
-			{
+                    { time: "11:30", title: "午餐：伏見稻荷老鋪", isDining: true, options: [
+                        { name: "祢ざめ家 (Nezameya)", info: "首選：豐臣秀吉命名。母親建議點『鹽烤鯖魚』。", dish: "炭烤鰻魚 / 鯖魚壽司", addr: "祢ざめ家", isPrimary: true },
+                        { name: "道步 (Doppo)", info: "備案 B：精緻京料理。環境舒適，適合長輩休憩。", dish: "京彩箱套餐", addr: "伏見稲荷 京料理 道歩" },
+                        { name: "Kendon-ya", info: "備案 C：手打烏龍麵。麵條極美味，人潮較少。", dish: "手打烏龍麵", addr: "けんどん屋" }
+                    ]},
+                    {
                         trans: [
                             { type: "🚕", text: "<b>計程車 (建議)</b><br>直達清水寺「五條坂頂端」15min。", addr: "TOYOCARMAX Kiyomizuderamonzen Parking Lot" }
                         ]
@@ -539,7 +756,7 @@
                     },
                     { time: "13:00", title: "點心", isDining: true, options: [
                         { name: "清水坂八ツ橋しゅ泡芙", info: "泡芙甜點，推薦抹茶泡芙。", dish: "抹茶泡芙", addr: "清水坂八ツ橋しゅ泡芙", isPrimary: true },
-                            ]},
+                    ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 下山往四條河原町區域。", addr: "四條河原町" }
@@ -547,77 +764,50 @@
                     },
                     { time: "15:30", title: "河原町 / 鴨川散策", stay: "2hr", guide: "【商業區】京都最繁華處。傍晚鴨川吹風很舒服。" },
                     { time: "18:30", title: "晚餐：京都壽喜燒最高峰", isDining: true, options: [
-                { name: "三嶋亭 (高島屋店)", info: "首選：極致美味。母親務必點『油燒』避開昆布醬。", dish: "壽喜燒 / 油燒 (Oil-yaki)", addr: "三嶋亭 高島屋京都店", isPrimary: true },
-                { name: "東洋亭 (高島屋店)", info: "備案 B：百年洋食。漢堡排與番茄沙拉是美味保證。", dish: "漢堡排套餐", addr: "グリルキャピタル東洋亭 髙島屋店" },
-                { name: "築地 壽司清", info: "備案 C：高品質壽司。位於百貨內，環境舒適。", dish: "季節握壽司套餐", addr: "築地 寿司清 京都高島屋店" }
-            ]}
+                        { name: "三嶋亭 (高島屋店)", info: "首選：極致美味。母親務必點『油燒』避開昆布醬。", dish: "壽喜燒 / 油燒 (Oil-yaki)", addr: "三嶋亭 高島屋京都店", isPrimary: true },
+                        { name: "東洋亭 (高島屋店)", info: "備案 B：百年洋食。漢堡排與番茄沙拉是美味保證。", dish: "漢堡排套餐", addr: "グリルキャピタル東洋亭 髙島屋店" },
+                        { name: "築地 壽司清", info: "備案 C：高品質壽司。位於百貨內，環境舒適。", dish: "季節握壽司套餐", addr: "築地 寿司清 京都高島屋店" }
+                    ]}
                 ]
             },
             4: {
                 title: "大阪深度遊：下町風情與都會繁華",
                 nodes: [
-                    { 
-                        time: "09:00", 
-                        title: "飯店出發 (sequence KYOTO GOJO)", 
-                        addr: "sequence KYOTO GOJO", 
-                        stay: "N/A", 
-                        guide: "【起點】清點隨身物品，準備前往大阪。" 
-                    },
+                    { time: "09:00", title: "飯店出發 (sequence KYOTO GOJO)", addr: "sequence KYOTO GOJO", stay: "N/A", guide: "【起點】清點隨身物品，準備前往大阪。" },
                     {
                         trans: [
                             { type: "🚕", text: "<b>飯店 -> 京都車站 (推薦)</b><br>搭乘計程車 (8min, 約 1,000円)。<br>最省力方案，直接載到近鐵或 JR 入口。", addr: "京都駅" },
                             { type: "🚇", text: "<b>地鐵烏丸線</b><br>五條 -> 京都 (2min, 220円)。需步行進出站約 10min。", addr: "京都駅" }
                         ]
                     },
-                    { 
-                        time: "09:30", 
-                        title: "跨城移動：京都 ➔ 大阪通天閣", 
-                        guide: "請根據當下位置選擇以下大眾交通方案：" 
-                    },
+                    { time: "09:30", title: "跨城移動：京都 ➔ 大阪通天閣", guide: "請根據當下位置選擇以下大眾交通方案：" },
                     {
                         trans: [
-                            { 
-                                type: "🚆", 
-                                text: "<b>1. JR 線特快 (最快方案)</b><br>路徑：京都站 (JR 新快速) -> 大阪站 (轉地鐵御堂筋線) -> 動物園前站。<br>時間：約 65 min。<br>特色：車次極多，速度最快。", 
-                                addr: "動物園前駅" 
-                            },
-                            { 
-                                type: "🚃", 
-                                text: "<b>2. 京阪電車 (景觀方案)</b><br>路徑：清水五條站 -> 北濱站 (轉地鐵堺筋線) -> 惠美須町站。<br>時間：約 75 min。<br>特色：車站離飯店步行 12min 可達，車廂較寬敞舒適。", 
-                                addr: "恵美須町駅" 
-                            },
-                            { 
-                                type: "🚕", 
-                                text: "<b>3. 計程車 (懶人方案)</b><br>若抵達 JR 大阪站後不想擠地鐵，直接搭計程車 (15min, 2,500円) 到通天閣門口。", 
-                                addr: "通天閣" 
-                            }
+                            { type: "🚆", text: "<b>1. JR 線特快 (最快方案)</b><br>路徑：京都站 (JR 新快速) -> 大阪站 (轉地鐵御堂筋線) -> 動物園前站。<br>時間：約 65 min。<br>特色：車次極多，速度最快。", addr: "動物園前駅" },
+                            { type: "🚃", text: "<b>2. 京阪電車 (景觀方案)</b><br>路徑：清水五條站 -> 北濱站 (轉地鐵堺筋線) -> 惠美須町站。<br>時間：約 75 min。<br>特色：車站離飯店步行 12min 可達，車廂較寬敞舒適。", addr: "恵美須町駅" },
+                            { type: "🚕", text: "<b>3. 計程車 (懶人方案)</b><br>若抵達 JR 大阪站後不想擠地鐵，直接搭計程車 (15min, 2,500円) 到通天閣門口。", addr: "通天閣" }
                         ]
                     },
                     { time: "10:30", title: "通天閣 / 新世界", addr: "大阪市浪速区恵美須東", stay: "1.5hr", guide: "【地標】昭和風情招牌街。可挑戰展望台或溜滑梯。<br>重點：拍攝巨大的河豚招牌與通天閣合影。" },
-                    
-		{ time: "11:00", title: "點心", isDining: true, options: [
+                    { time: "11:00", title: "點心", isDining: true, options: [
                         { name: "甘干章魚燒 (かんかん - Kankan)", info: "傳奇章魚燒-口感屬於「極致軟嫩系」。", dish: "章魚燒", addr: "甘干章魚燒 (かんかん - Kankan)", isPrimary: true },
-                            ]},
-{
+                    ]},
+                    {
                         trans: [
                             { type: "🚕", text: "<b>計程車 (短程)</b><br>直達八阪神社 (8min, 1,000円)。", addr: "難波八阪神社" }
                         ]
                     },
-		    { 
-                        time: "11:45", 
-                        title: "🦁 難波八阪神社", 
-                        addr: "難波八阪神社", 
-                        guide: "<b>必拍大地標</b>：巨大的獅子殿非常壯觀。來拍張「獅子大開口」的照片，祈求學業與運氣。" },
-                        {trans: [
+                    { time: "11:45", title: "🦁 難波八阪神社", addr: "難波八阪神社", guide: "<b>必拍大地標</b>：巨大的獅子殿非常壯觀。來拍張「獅子大開口」的照片，祈求學業與運氣。" },
+                    {
+                        trans: [
                             { type: "🚕", text: "<b>計程車 (短程)</b><br>直達黑門市場入口 (5min, 1,000円)。", addr: "黒門市場" }
                         ]
                     },
-
                     { time: "12:45", title: "午餐：黑門市場美味巡禮", isDining: true, options: [
-                { name: "石橋食品 / 黑門三平", info: "首選：關東煮(爸姐) + 現切海鮮(母)。", dish: "關東煮 / 鹽烤大干貝", addr: "黒門市場", isPrimary: true },
-                { name: "麵屋 丈六", info: "備案 B：大阪第一黑醬油拉麵。拉麵控必吃。", dish: "中華蕎麥", addr: "麺屋 丈六" },
-                { name: "萬野總本店", info: "備案 C：精肉店現烤和牛。避開昆布最安全。", dish: "黑毛和牛現煎", addr: "萬野総本店" }
-            ]},
+                        { name: "石橋食品 / 黑門三平", info: "首選：關東煮(爸姐) + 現切海鮮(母)。", dish: "關東煮 / 鹽烤大干貝", addr: "黒門市場", isPrimary: true },
+                        { name: "麵屋 丈六", info: "備案 B：大阪第一黑醬油拉麵。拉麵控必吃。", dish: "中華蕎麥", addr: "麺屋 丈六" },
+                        { name: "萬野總本店", info: "備案 C：精肉店現烤和牛。避開昆布最安全。", dish: "黑毛和牛現煎", addr: "萬野総本店" }
+                    ]},
                     {
                         trans: [
                             { type: "🚶", text: "<b>步行</b> 往道頓堀/心齋橋約 10min。", addr: "固力果看板" }
@@ -626,30 +816,22 @@
                     { time: "14:30", title: "道頓堀 / 心齋橋購物", stay: "2hr", guide: "【重點】固力果看板合影。商店街內有 3Coins 與藥妝。<br><b>購鞋提醒：</b> 這裡有大型 ABC-MART 可先偵查 HOKA/NB 鞋款。" },
                     { time: "15:00", title: "點心", isDining: true, options: [
                         { name: "PABLO 心齋橋店", info: "起司塔甜點，推薦各種口味起司塔。", dish: "起司塔", addr: "PABLO 心齋橋店", isPrimary: true },
-			{ name: "たこ焼道楽 わなか (Wanaka)", info: "備案 B：許多在地人的最愛。特色是表皮極薄且帶微脆，內部呈奶油狀。", dish: "章魚燒", addr: "章魚燒道樂わなか 美國村店" },
-                	{ name: "甲賀流 (Kouryu)", info: "備案 C：「蔥橙醋 (Negi-pon)」口味章魚燒。", dish: "章魚燒", addr: "米其林章魚燒 甲賀流 本店" }
-                            ]},
-			{
+                        { name: "たこ焼道楽 わなか (Wanaka)", info: "備案 B：許多在地人的最愛。特色是表皮極薄且帶微脆，內部呈奶油狀。", dish: "章魚燒", addr: "章魚燒道樂わなか 美國村店" },
+                        { name: "甲賀流 (Kouryu)", info: "備案 C：「蔥橙醋 (Negi-pon)」口味章魚燒。", dish: "章魚燒", addr: "米其林章魚燒 甲賀流 本店" }
+                    ]},
+                    {
                         trans: [
                             { type: "🚇", text: "<b>地鐵御堂筋線</b> (心齋橋 -> 梅田) 6min。", addr: "梅田站" }
                         ]
                     },
-
-                    { 
-                        special: "pokemon", // 標記為寶可夢特別節點
-                        time: "15:30", title: "⚡ 寶可夢中心巡禮", guide: "心齋橋店則在大丸 9F。" 
-                    },
-
+                    { special: "pokemon", time: "15:30", title: "⚡ 寶可夢中心巡禮", guide: "心齋橋店則在大丸 9F。" },
                     { time: "16:30", title: "梅田購鞋任務", addr: "大阪市北区梅田", stay: "2.5hr", guide: "【最終採買】大丸/LUCUA 百貨。購買 New Balance 或 HOKA 專櫃鞋。此處退稅環境最舒適。" },
-                    { 
-                        special: "pokemon", // 標記為寶可夢特別節點
-                        time: "17:30", title: "⚡ 寶可夢中心巡禮", guide: "梅田店位於大丸 13F。" 
-                    },
+                    { special: "pokemon", time: "17:30", title: "⚡ 寶可夢中心巡禮", guide: "梅田店位於大丸 13F。" },
                     { time: "19:00", title: "晚餐：大阪之夜最終章", isDining: true, options: [
-                { name: "備長鰻魚飯 / 燒肉力丸", info: "首選：炭烤鰻魚三吃 或 厚切牛舌燒肉。", dish: "一本鰻 / 燒肉吃到飽", addr: "グランフロント大阪", isPrimary: true },
-                { name: "利久牛舌", info: "備案 B：仙台厚切牛舌。美味穩定，環境寬敞。", dish: "牛舌極定食", addr: "牛たん炭焼 利久 大丸梅田店" },
-                { name: "鴨 to 蔥", info: "備案 C：梅田最新排隊名店。鴨肉鮮甜。", dish: "鴨拉麵", addr: "らぁ麺 鴨と葱 大阪バルチカ03店" }
-            ]},
+                        { name: "備長鰻魚飯 / 燒肉力丸", info: "首選：炭烤鰻魚三吃 或 厚切牛舌燒肉。", dish: "一本鰻 / 燒肉吃到飽", addr: "グランフロント大阪", isPrimary: true },
+                        { name: "利久牛舌", info: "備案 B：仙台厚切牛舌。美味穩定，環境寬敞。", dish: "牛舌極定食", addr: "牛たん炭焼 利久 大丸梅田店" },
+                        { name: "鴨 to 蔥", info: "備案 C：梅田最新排隊名店。鴨肉鮮甜。", dish: "鴨拉麵", addr: "らぁ麺 鴨と葱 大阪バルチカ03店" }
+                    ]},
                     {
                         trans: [
                             { type: "🚆", text: "<b>JR 新快速 (回程)</b><br>大阪站 -> 京都站。<br>時間：約 35 min。", addr: "京都駅" }
@@ -677,85 +859,92 @@
             }
         };
 
+        /**
+         * 核心渲染函式：根據傳入的 Day 繪製行程畫面
+         */
         function render(day) {
-	currentDay = day;
-            // 更新按鈕樣式
+            currentDay = day;
+            
+            // 1. 更新天數導航按鈕樣式
             const btns = document.querySelectorAll('.day-nav button');
-            btns.forEach((b, i) => b.className = (i+1 === day ? 'active' : ''));
+            btns.forEach((b, i) => b.className = (i + 1 === day ? 'active' : ''));
 
-            // 渲染每日大標題 (移動到線條上方，避免重疊)
+            // 2. 渲染每日大標題 (移動到線條上方，避免重疊)
             const titleContainer = document.getElementById('dayTitleContainer');
             titleContainer.innerHTML = `<h2 class="day-main-title">Day ${day} | ${tripData[day].title}</h2>`;
 
             const container = document.getElementById('timelineContent');
             let html = ``;
             
+            // 3. 遍歷當天的行程節點
             tripData[day].nodes.forEach(n => {
-    if (n.trans) {
-        // 1. 處理交通節點
-        html += `<div class="trans-divider">
-            <div class="trans-card">
-                ${n.trans.map(t => `
-                    <div class="trans-row">
-                        <div class="trans-icon">${t.type}</div>
-                        <div class="trans-text">
-                            ${t.text}
-                            <br><button class="map-btn" onclick="openMap('${t.addr}')">🗺️ 地圖導航</button>
+                if (n.trans) {
+                    // 處理交通節點
+                    html += `<div class="trans-divider">
+                        <div class="trans-card">
+                            ${n.trans.map(t => `
+                                <div class="trans-row">
+                                    <div class="trans-icon">${t.type}</div>
+                                    <div class="trans-text">
+                                        ${t.text}
+                                        <br><button class="map-btn" onclick="openMap('${t.addr}')">🗺️ 地圖導航</button>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>`;
-    } else if (n.special === "pokemon") {
-        // 2. 處理寶可夢特別節點 (必須放在一般 else 之前)
-        html += `
-        <div class="timeline-node">
-            <div class="node-dot" style="border-color:#ffcb05; background:#ffcb05;"></div>
-            <span class="node-time">${n.time}</span>
-            <div class="card" style="background: linear-gradient(135deg, #fff9db, #fff);">
-                <div class="node-title">${n.title}</div>
-                <div class="guide-box">${n.guide}</div>
-                <button class="tool-btn" style="width:100%" onclick="showModal('pokemon')">🎮 打開寶可夢專屬導航卡</button>
-            </div>
-        </div>`;
-} else if (n.isDining) {
-    html += `
-    <div class="timeline-node">
-        <div class="node-dot" style="border-color:var(--secondary);"></div>
-        <span class="node-time">🍴 餐廳方案 (首選與即時備案)</span>
-        <div class="dining-wrap">
-            ${n.options.map(o => `
-                <div class="dining-card ${o.isPrimary ? 'primary-choice' : ''}">
-                    ${o.isPrimary ? '<div class="primary-tag">★ 本日首選</div>' : '<div class="backup-tag">⚡ 即時備案</div>'}
-                    <strong>${o.name}</strong><br><small>${o.info}</small>
-                    <div style="display:flex; gap:5px; margin-top:8px;">
-                        <button class="map-btn" style="flex:1;" onclick="openMap('${o.addr}')">🗺️ 地圖</button>
-                        <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${o.name}')">🔍 搜尋</button>
-                    </div>
-                    <div class="menu-pill" style="${o.isPrimary ? 'background:#fab005; color:#fff;' : ''}">✨ ${o.dish}</div>
-                </div>
-            `).join('')}
-        </div>
-    </div>`;
-} else {
-    html += `
-    <div class="timeline-node">
-        <div class="node-dot"></div>
-        <span class="node-time">${n.time}</span>
-        <div class="card">
-            <div style="font-weight:bold; font-size:17px;">${n.title}</div>
-            <div class="guide-box">${n.guide}</div>
-            <div style="display:flex; gap:8px;">
-                ${n.addr ? `<button class="map-btn" style="flex:1;" onclick="openMap('${n.addr}')">🗺️ 地圖</button>` : ''}
-                <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${n.title}')">🔍 搜尋</button>
-            </div>
-        </div>
-    </div>`;
-}
-});
+                    </div>`;
+                } else if (n.special === "pokemon") {
+                    // 處理寶可夢特別節點
+                    html += `
+                    <div class="timeline-node">
+                        <div class="node-dot" style="border-color:#ffcb05; background:#ffcb05;"></div>
+                        <span class="node-time">${n.time}</span>
+                        <div class="card" style="background: linear-gradient(135deg, #fff9db, #fff);">
+                            <div class="node-title">${n.title}</div>
+                            <div class="guide-box">${n.guide}</div>
+                            <button class="tool-btn" style="width:100%" onclick="showModal('pokemon')">🎮 打開寶可夢專屬導航卡</button>
+                        </div>
+                    </div>`;
+                } else if (n.isDining) {
+                    // 處理餐廳方案節點
+                    html += `
+                    <div class="timeline-node">
+                        <div class="node-dot" style="border-color:var(--secondary);"></div>
+                        <span class="node-time">🍴 餐廳方案 (首選與即時備案)</span>
+                        <div class="dining-wrap">
+                            ${n.options.map(o => `
+                                <div class="dining-card ${o.isPrimary ? 'primary-choice' : ''}">
+                                    ${o.isPrimary ? '<div class="primary-tag">★ 本日首選</div>' : '<div class="backup-tag">⚡ 即時備案</div>'}
+                                    <strong>${o.name}</strong><br><small>${o.info}</small>
+                                    <div style="display:flex; gap:5px; margin-top:8px;">
+                                        <button class="map-btn" style="flex:1;" onclick="openMap('${o.addr}')">🗺️ 地圖</button>
+                                        <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${o.name}')">🔍 搜尋</button>
+                                    </div>
+                                    <div class="menu-pill" style="${o.isPrimary ? 'background:#fab005; color:#fff;' : ''}">✨ ${o.dish}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+                } else {
+                    // 處理一般行程節點
+                    html += `
+                    <div class="timeline-node">
+                        <div class="node-dot"></div>
+                        <span class="node-time">${n.time}</span>
+                        <div class="card">
+                            <div style="font-weight:bold; font-size:17px;">${n.title}</div>
+                            <div class="guide-box">${n.guide}</div>
+                            <div style="display:flex; gap:8px;">
+                                ${n.addr ? `<button class="map-btn" style="flex:1;" onclick="openMap('${n.addr}')">🗺️ 地圖</button>` : ''}
+                                <button class="map-btn" style="flex:1; background:#f0f0f0; color:#555;" onclick="googleSearch('${n.title}')">🔍 搜尋</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            });
 
-            // 歸巢節點
-            if(day < 5) {
+            // 4. 歸巢節點 (Day 1 ~ Day 4)
+            if (day < 5) {
                 html += `
                 <div class="timeline-node" style="margin-top:20px;">
                     <div class="node-dot" style="border-color:#ccc; background:#ccc;"></div>
@@ -769,8 +958,11 @@
             }
 
             container.innerHTML = html;
-            window.scrollTo(0,0);
-		// --- Step 2: 自動定位當前時間行程 (加入防錯機制) ---
+            window.scrollTo(0, 0);
+
+            // =========================================
+            // 自動定位當前時間行程 (防錯機制)
+            // =========================================
             const now = new Date();
             const currentYear = now.getFullYear();
             const currentMonth = now.getMonth() + 1;
@@ -778,7 +970,7 @@
             
             // 判定「今天」是否真的在旅遊期間內 (2026/5/8 ~ 2026/5/12)
             const isActualTravelPeriod = (currentYear === 2026 && currentMonth === 5 && currentDate >= 8 && currentDate <= 12);
-		//const isActualTravelPeriod = (currentYear === 2026 && currentMonth === 4);
+            
             const currentHour = now.getHours();
             const currentMin = now.getMinutes();
             const currentTimeVal = currentHour * 60 + currentMin;
@@ -807,7 +999,7 @@
                 });
             }
 
-            // 修正後的判斷：必須是「旅遊期間」且「顯示的天數等於今天的天數」才捲動與標記
+            // 必須是「旅遊期間」且「顯示的天數等於今天的天數」才捲動與標記
             if (isActualTravelPeriod && closestNode && day === getSmartDay()) {
                 setTimeout(() => {
                     closestNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -824,197 +1016,218 @@
             }
         }
 
+        /**
+         * 複製文字至剪貼簿
+         */
         function copy(t) {
-            if(!t) return;
+            if (!t) return;
             navigator.clipboard.writeText(t);
             const toast = document.getElementById('toast');
             toast.style.display = 'block';
             setTimeout(() => toast.style.display = 'none', 2000);
         }
 
+        /**
+         * 開啟 Google Maps 導航
+         */
         function openMap(addr) {
-            if(!addr) return;
-            const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+            if (!addr) return;
+            const url = `http://googleusercontent.com/maps.google.com/?q=${encodeURIComponent(addr)}`;
             window.open(url, '_blank');
         }
 
-	// --- 一鍵 Google 搜尋功能 ---
-	function googleSearch(query) {
-	    if(!query) return;
-	    // 為了搜尋更精準，我們可以自動加上地區關鍵字（例如：大阪 餐廳名）
-	    const fullQuery = query; 
-	    const url = `https://www.google.com/search?q=${encodeURIComponent(fullQuery)}`;
-	    window.open(url, '_blank');
-	}
-
-        //function showModal(id) { document.getElementById(id + '-modal').style.display = 'block'; }
-        // 修改原本的 showModal 函式
-function showModal(id) {
-    if (id === 'food') {
-        updateFoodModal();
-    }
-    document.getElementById(id + '-modal').style.display = 'block';
-}
-
-// 新增自動生成美食清單的函式
-function updateFoodModal() {
-    const container = document.getElementById('foodListContainer');
-    let allRestaurants = [];
-
-    // 1. 處理口袋名單 (請確保 foodListData 內的物件已有 region: "Kyoto" 或 "Osaka")
-    foodListData.forEach(r => {
-        allRestaurants.push({ ...r });
-    });
-
-    // 2. 自動從行程 tripData 中抓取，並根據天數標註地區
-    Object.keys(tripData).forEach(dayNum => {
-        const day = tripData[dayNum];
-        // 判定規則：Day 4 是大阪，其他天數是京都
-        const autoRegion = (parseInt(dayNum) === 4) ? "Osaka" : "Kyoto";
-        
-        day.nodes.forEach(node => {
-            if (node.isDining && node.options) {
-                node.options.forEach(opt => {
-                    // 將地區資訊注入到物件中
-                    allRestaurants.push({ ...opt, region: autoRegion });
-                });
-            }
-        });
-    });
-
-    // 移除重複
-    const uniqueRestaurants = allRestaurants.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
-
-    // 3. 生成 HTML (加入顏色判斷)
-    container.innerHTML = uniqueRestaurants.map(r => {
-        const isOsaka = r.region === "Osaka";
-        const regionClass = isOsaka ? "card-osaka" : "card-kyoto";
-        const badgeClass = isOsaka ? "badge-osaka" : "badge-kyoto";
-        const regionName = isOsaka ? "大阪" : "京都";
-
-        return `
-            <div class="card ${regionClass}" style="margin-bottom: 15px;">
-                <div class="region-badge ${badgeClass}">${regionName}</div>
-                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                    <div>
-                        <strong style="font-size:16px;">${r.name}</strong><br>
-                        <small style="color:#666;">${r.info}</small>
-                    </div>
-                    <div class="menu-pill" style="margin:0;">✨ ${r.dish}</div>
-                </div>
-                <div style="display:flex; gap:8px; margin-top:10px;">
-                    <button class="map-btn" style="flex:1; margin:0;" onclick="openMap('${r.addr}')">🗺️ 地圖導航</button>
-                    <button class="map-btn" style="flex:1; margin:0; background:#f0f0f0; color:#555;" onclick="googleSearch('${r.name}')">🔍 搜尋資訊</button>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-	function hideModal(id) { document.getElementById(id + '-modal').style.display = 'none'; }
-
-	// --- 左右滑動切換天數核心引擎 ---
-let touchstartX = 0;
-let touchendX = 0;
-const swipeThreshold = 80; // 滑動超過 80 像素才觸發切換
-
-// 1. 紀錄手指碰觸螢幕的起點
-document.addEventListener('touchstart', e => {
-    touchstartX = e.changedTouches[0].screenX;
-}, { passive: true });
-
-// 2. 紀錄手指離開螢幕的終點，並計算位移
-document.addEventListener('touchend', e => {
-    touchendX = e.changedTouches[0].screenX;
-    handleSwipe(e);
-}, { passive: true });
-
-// 3. 判定滑動方向
-function handleSwipe(e) {
-    // 【重要】排除正在滑動「餐廳卡片」或「導覽列」時的誤觸
-    const isScrollingContent = e.target.closest('.day-nav, .dining-wrap');
-    if (isScrollingContent) return;
-
-    const deltaX = touchendX - touchstartX;
-
-    // 向左滑 (下一天)
-    if (deltaX < -swipeThreshold && currentDay < 5) {
-        const nextDay = currentDay + 1;
-        render(nextDay);
-        showSwipeToast(`切換至 Day ${nextDay}`);
-    } 
-    // 向右滑 (前一天)
-    else if (deltaX > swipeThreshold && currentDay > 1) {
-        const prevDay = currentDay - 1;
-        render(prevDay);
-        showSwipeToast(`回到 Day ${prevDay}`);
-    }
-}
-
-// 4. 滑動成功的小提示
-function showSwipeToast(msg) {
-    const toast = document.getElementById('toast');
-    if (toast) {
-        toast.innerText = msg;
-        toast.style.display = 'block';
-        setTimeout(() => toast.style.display = 'none', 1000);
-    }
-}
-
-// --- 向下滑動關閉工具列頁面 (Swipe Down to Close Modal) ---
-let modalStartY = 0;
-
-document.querySelectorAll('.modal').forEach(modal => {
-    // 1. 紀錄起點高度
-    modal.addEventListener('touchstart', e => {
-        modalStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    // 2. 判定滑動位移
-    modal.addEventListener('touchend', e => {
-        const modalEndY = e.changedTouches[0].clientY;
-        const diffY = modalEndY - modalStartY; // 終點減起點：正值代表「向下」
-
-        // 門檻值設定為 100px (向下滑動超過 100px 則觸發)
-        if (diffY > 100) {
-            const modalId = modal.id.replace('-modal', '');
-            
-            // 執行向下滑動消失的動畫
-            modal.style.transition = "transform 0.3s ease-in, opacity 0.3s";
-            modal.style.transform = "translateY(100%)"; // 向下移出螢幕
-            modal.style.opacity = "0";
-
-            setTimeout(() => {
-                hideModal(modalId);
-                // 隱藏後重置樣式，確保下次開啟時能正確從底部彈回（或直接出現）
-                modal.style.transform = "translateY(0)";
-                modal.style.opacity = "1";
-                modal.style.transition = "none";
-            }, 300);
+        /**
+         * 一鍵 Google 搜尋功能
+         */
+        function googleSearch(query) {
+            if (!query) return;
+            const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            window.open(url, '_blank');
         }
-    }, { passive: true });
-});
 
-        // --- 智慧日期偵測引擎 ---
-	function getSmartDay() {
-    		const now = new Date();
-    		const month = now.getMonth() + 1;
-    		const date = now.getDate();
-    		const year = now.getFullYear();
+        /**
+         * 顯示指定的 Modal (並處理美食清單的自動生成)
+         */
+        function showModal(id) {
+            if (id === 'food') {
+                updateFoodModal();
+            }
+            document.getElementById(id + '-modal').style.display = 'block';
+        }
 
-    // 您的旅程設定在 2026 年 5 月
-    if (year === 2026 && month === 5) {
-        if (date <= 8) return 1;  // 5/8 以前都顯示 Day 1
-        if (date === 9) return 2;
-        if (date === 10) return 3;
-        if (date === 11) return 4;
-        if (date >= 12) return 5; // 5/12 以後顯示 Day 5
-    }
-    return 1; // 非旅程期間預設顯示 Day 1
-}
+        /**
+         * 隱藏指定的 Modal
+         */
+        function hideModal(id) { 
+            document.getElementById(id + '-modal').style.display = 'none'; 
+        }
 
-	// 替換原本的 render(1)，改為自動偵測
-	const targetDay = getSmartDay();
-	render(targetDay);
+        /**
+         * 自動生成美食清單
+         */
+        function updateFoodModal() {
+            const container = document.getElementById('foodListContainer');
+            let allRestaurants = [];
+
+            // 1. 處理口袋名單
+            foodListData.forEach(r => {
+                allRestaurants.push({ ...r });
+            });
+
+            // 2. 自動從行程 tripData 中抓取，並根據天數標註地區
+            Object.keys(tripData).forEach(dayNum => {
+                const day = tripData[dayNum];
+                // 判定規則：Day 4 是大阪，其他天數是京都
+                const autoRegion = (parseInt(dayNum) === 4) ? "Osaka" : "Kyoto";
+                
+                day.nodes.forEach(node => {
+                    if (node.isDining && node.options) {
+                        node.options.forEach(opt => {
+                            // 將地區資訊注入到物件中
+                            allRestaurants.push({ ...opt, region: autoRegion });
+                        });
+                    }
+                });
+            });
+
+            // 移除重複
+            const uniqueRestaurants = allRestaurants.filter((v, i, a) => a.findIndex(t => (t.name === v.name)) === i);
+
+            // 3. 生成 HTML (加入顏色判斷)
+            container.innerHTML = uniqueRestaurants.map(r => {
+                const isOsaka = r.region === "Osaka";
+                const regionClass = isOsaka ? "card-osaka" : "card-kyoto";
+                const badgeClass = isOsaka ? "badge-osaka" : "badge-kyoto";
+                const regionName = isOsaka ? "大阪" : "京都";
+
+                return `
+                    <div class="card ${regionClass}" style="margin-bottom: 15px;">
+                        <div class="region-badge ${badgeClass}">${regionName}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div>
+                                <strong style="font-size:16px;">${r.name}</strong><br>
+                                <small style="color:#666;">${r.info}</small>
+                            </div>
+                            <div class="menu-pill" style="margin:0;">✨ ${r.dish}</div>
+                        </div>
+                        <div style="display:flex; gap:8px; margin-top:10px;">
+                            <button class="map-btn" style="flex:1; margin:0;" onclick="openMap('${r.addr}')">🗺️ 地圖導航</button>
+                            <button class="map-btn" style="flex:1; margin:0; background:#f0f0f0; color:#555;" onclick="googleSearch('${r.name}')">🔍 搜尋資訊</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // =========================================
+        // 左右滑動切換天數核心引擎
+        // =========================================
+        let touchstartX = 0;
+        let touchendX = 0;
+        const swipeThreshold = 80; // 滑動超過 80 像素才觸發切換
+
+        // 1. 紀錄手指碰觸螢幕的起點
+        document.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        // 2. 紀錄手指離開螢幕的終點，並計算位移
+        document.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe(e);
+        }, { passive: true });
+
+        // 3. 判定滑動方向
+        function handleSwipe(e) {
+            // 【重要】排除正在滑動「餐廳卡片」或「導覽列」時的誤觸
+            const isScrollingContent = e.target.closest('.day-nav, .dining-wrap');
+            if (isScrollingContent) return;
+
+            const deltaX = touchendX - touchstartX;
+
+            // 向左滑 (下一天)
+            if (deltaX < -swipeThreshold && currentDay < 5) {
+                const nextDay = currentDay + 1;
+                render(nextDay);
+                showSwipeToast(`切換至 Day ${nextDay}`);
+            } 
+            // 向右滑 (前一天)
+            else if (deltaX > swipeThreshold && currentDay > 1) {
+                const prevDay = currentDay - 1;
+                render(prevDay);
+                showSwipeToast(`回到 Day ${prevDay}`);
+            }
+        }
+
+        // 4. 滑動成功的小提示
+        function showSwipeToast(msg) {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.innerText = msg;
+                toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 1000);
+            }
+        }
+
+        // =========================================
+        // 向下滑動關閉工具列頁面 (Swipe Down to Close Modal)
+        // =========================================
+        let modalStartY = 0;
+
+        document.querySelectorAll('.modal').forEach(modal => {
+            // 1. 紀錄起點高度
+            modal.addEventListener('touchstart', e => {
+                modalStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            // 2. 判定滑動位移
+            modal.addEventListener('touchend', e => {
+                const modalEndY = e.changedTouches[0].clientY;
+                const diffY = modalEndY - modalStartY; // 終點減起點：正值代表「向下」
+
+                // 門檻值設定為 100px (向下滑動超過 100px 則觸發)
+                if (diffY > 100) {
+                    const modalId = modal.id.replace('-modal', '');
+                    
+                    // 執行向下滑動消失的動畫
+                    modal.style.transition = "transform 0.3s ease-in, opacity 0.3s";
+                    modal.style.transform = "translateY(100%)"; // 向下移出螢幕
+                    modal.style.opacity = "0";
+
+                    setTimeout(() => {
+                        hideModal(modalId);
+                        // 隱藏後重置樣式，確保下次開啟時能正確從底部彈回（或直接出現）
+                        modal.style.transform = "translateY(0)";
+                        modal.style.opacity = "1";
+                        modal.style.transition = "none";
+                    }, 300);
+                }
+            }, { passive: true });
+        });
+
+        // =========================================
+        // 智慧日期偵測引擎
+        // =========================================
+        function getSmartDay() {
+            const now = new Date();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            const year = now.getFullYear();
+
+            // 旅程設定在 2026 年 5 月
+            if (year === 2026 && month === 5) {
+                if (date <= 8) return 1;  // 5/8 以前都顯示 Day 1
+                if (date === 9) return 2;
+                if (date === 10) return 3;
+                if (date === 11) return 4;
+                if (date >= 12) return 5; // 5/12 以後顯示 Day 5
+            }
+            return 1; // 非旅程期間預設顯示 Day 1
+        }
+
+        // 替換原本的 render(1)，改為自動偵測
+        const targetDay = getSmartDay();
+        render(targetDay);
 
     </script>
 </body>
