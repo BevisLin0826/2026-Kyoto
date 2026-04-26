@@ -673,7 +673,9 @@
                     { time: "18:00", title: "晚餐：名代豬排與寺町散策", isDining: true, options: [
                         { name: "名代豬排 (かつくら)", info: "首選：京都豬排巔峰。請母親避開醬汁沾鹽吃。", dish: "精品豬排定食", addr: "名代とんかつ かつくら 四条寺町店", isPrimary: true },
                         { name: "亮昌餃子 (高辻店)", info: "備案 B：京都特有和風餃子。步行極近、美味度高。", dish: "煎餃套餐", addr: "ぎょうざ処 亮昌 高辻店" },
-                        { name: "五行拉麵 (Gogyo)", info: "備案 C：焦香黑味噌。獨特的焦燻味，拉麵迷首選。", dish: "焦がし味噌ラーメン", addr: "京都 五行" }
+			{ name: "おにぎり ごりちゃん (Gorichan)",info: "首選：巨型現捏飯糰，茶泡飯一絕。需注意高湯含昆布。", dish: "明太子鮭魚 / 蛋黃醬油肉末", addr: "Onimaru Kyoto Shijo Kawaramachi"},
+                        { name: "山木雞卵 (三木雞卵)", info: "備案：百年玉子燒。影片推薦高湯香氣濃郁。", dish: "高湯雞蛋捲", addr: "三木鶏卵", isPrimary: false },
+			{ name: "五行拉麵 (Gogyo)", info: "備案 C：焦香黑味噌。獨特的焦燻味，拉麵迷首選。", dish: "焦がし味噌ラーメン", addr: "京都 五行" }
                     ]},
                     {
                         trans: [
@@ -779,8 +781,10 @@
                 title: "大阪深度遊：下町風情與都會繁華",
                 nodes: [
                     { time: "09:00", title: "飯店出發 (sequence KYOTO GOJO)", addr: "sequence KYOTO GOJO", stay: "N/A", guide: "【起點】清點隨身物品，準備前往大阪。" },
-                    {
-                        trans: [
+                    { time: "15:00", title: "心齋橋跟風美食巡禮", isDining: true, options: [
+                    { name: "おにぎり ごりちゃん (Gorichan)",info: "首選：巨型現捏飯糰，茶泡飯一絕。需注意高湯含昆布。", dish: "明太子鮭魚 / 蛋黃醬油肉末", addr: "Onigiri Gorichan Shinsekai Branch", isPrimary: true}
+                ]},
+		{trans: [
                             { type: "🚕", text: "<b>飯店 -> 京都車站 (推薦)</b><br>搭乘計程車 (8min, 約 1,000円)。<br>最省力方案，直接載到近鐵或 JR 入口。", addr: "京都駅" },
                             { type: "🚇", text: "<b>地鐵烏丸線</b><br>五條 -> 京都 (2min, 220円)。需步行進出站約 10min。", addr: "京都駅" }
                         ]
@@ -819,10 +823,16 @@
                         ]
                     },
                     { time: "14:30", title: "道頓堀 / 心齋橋購物", stay: "2hr", guide: "【重點】固力果看板合影。商店街內有 3Coins 與藥妝。<br><b>購鞋提醒：</b> 這裡有大型 ABC-MART 可先偵查 HOKA/NB 鞋款。" },
-                    { time: "15:00", title: "點心", isDining: true, options: [
-                        { name: "PABLO 心齋橋店", info: "起司塔甜點，推薦各種口味起司塔。", dish: "起司塔", addr: "PABLO 心齋橋店", isPrimary: true },
-                        { name: "たこ焼道楽 わなか (Wanaka)", info: "備案 B：許多在地人的最愛。特色是表皮極薄且帶微脆，內部呈奶油狀。", dish: "章魚燒", addr: "章魚燒道樂わなか 美國村店" },
+                    { time: "15:00", title: "章魚燒", isDining: true, options: [
+                        { name: "たこ八 (Tako Hachi)",info: "首選：湯頭味極濃的章魚燒。母親請注意海苔粉。",dish: "經典章魚燒 (要求不加海苔粉)", isPrimary: true},
+			{ name: "たこ焼道楽 わなか (Wanaka)", info: "備案 B：許多在地人的最愛。特色是表皮極薄且帶微脆，內部呈奶油狀。", dish: "章魚燒", addr: "章魚燒道樂わなか 美國村店" },
                         { name: "甲賀流 (Kouryu)", info: "備案 C：「蔥橙醋 (Negi-pon)」口味章魚燒。", dish: "章魚燒", addr: "米其林章魚燒 甲賀流 本店" }
+                    ]},
+		    { time: "15:15", title: "點心", isDining: true, options: [
+                        { name: "PABLO 心齋橋店", info: "起司塔甜點，推薦各種口味起司塔。", dish: "起司塔", addr: "PABLO 心齋橋店", isPrimary: true },
+                        { name: "もうけん (Mouken)",info: "首選：難波隱藏名店，酥脆外皮與現擠香草醬。每日限量賣完即止。", dish: "招牌卡士達泡芙",addr: "もうけん 大阪府大阪市中央区難波3丁目2-24"},
+                    	{ name: "Pâtisserie MOKU",info: "備案 B：影片介紹店。每日僅開 3 小時，泡芙香氣極重。", dish: "香脆泡芙",addr: "Pâtisserie MOKU"},
+			{ name: "Mignon (ミニヨン)", info: "首選：福岡傳奇可頌，美味度 N1。完全避開昆布風險。", dish: "原味 / 焦糖堅果可頌 (買 5 顆組)", addr: "ミニヨン 心斎橋店", isPrimary: true}
                     ]},
                     {
                         trans: [
