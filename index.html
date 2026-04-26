@@ -1031,10 +1031,11 @@
          * 開啟 Google Maps 導航
          */
         function openMap(addr) {
-            if (!addr) return;
-            const url = `http://googleusercontent.com/maps.google.com/?q=${encodeURIComponent(addr)}`;
-            window.open(url, '_blank');
-        }
+	    if (!addr) return;
+	    // 已修正為正確的 Google Maps 搜尋/導航網址
+	    const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`;
+	    window.open(url, '_blank');
+	}
 
         /**
          * 一鍵 Google 搜尋功能
