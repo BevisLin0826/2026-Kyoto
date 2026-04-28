@@ -719,22 +719,28 @@
                             { type: "🚕", text: "<b>計程車 (建議)</b> 省力直達 25min，2,800円。", addr: "金閣寺" }
                         ]
                     },
-                    { time: "15:00", title: "金閣寺 (鹿苑寺)", addr: "京都市北区金閣寺町1", stay: "1hr", guide: "【視覺】外牆純金箔。下午 3 點陽光斜射在舍利殿上最燦爛。" },
-                    {
-                        trans: [
-                            { type: "🚌", text: "<b>公車 </b> 往靈光殿天滿宮(25min)，特色御守二選一。", addr: "靈光殿天滿宮" },
-                            { type: "🚌", text: "<b>公車 </b> 往御金神社(35min)，特色御守二選一。", addr: "御金神社" },
-                            { type: "🚌", text: "<b>公車 </b> 往AEON MALL KYOTO(50min)。", addr: "AEON MALL KYOTO" }
-                        ]
-                    },
-                    { time: "17:30", title: "🛍️ AEON MALL KYOTO 逛街", addr: "AEON MALL KYOTO", stay: "3hr", guide: "<b>重點商店</b>：阿卡將 (Akachan Honpo)、WorkmanGirl、3Coins、無印良品、UNIQLO。" },
-                    { time: "18:30", title: "晚餐：頂級和牛體驗", isDining: true, options: [
-                        { name: "京の焼肉處 弘", info: "首選：京都燒肉代名詞。點「鹽味」避開昆布醬汁。", dish: "今晚精選拼盤", addr: "京の焼肉 弘 三条木屋町店", isPrimary: true },
-                        { name: "先斗町 Kappa 壽司", info: "備案 B：鴨川河畔壽司。食材新鮮度極佳。", dish: "板前握壽司", addr: "先斗町 かっぱ寿司" },
-                        { name: "Moritaya (森田屋)", info: "備案 C：百年牛肉店，亦可選擇牛排避開昆布。", dish: "和牛牛排", addr: "モリタ屋 満月店" }
-                    ]}
+                    { time: "14:30", title: "金閣寺 (鹿苑寺)", addr: "金閣寺", stay: "1hr", guide: "外牆純金箔。下午陽光斜射在舍利殿上最為燦爛。" },
+            {
+                trans: [
+                    { type: "🚌", text: "<b>公車</b>：搭乘 204/205 號至下鴨神社前(35min)。", addr: "下鴨神社" },
+                    { type: "🚕", text: "<b>計程車 (建議)</b>：直達下鴨神社 20min，2,200円。", addr: "下鴨神社" }
                 ]
             },
+            { time: "16:00", title: "下鴨神社 ➔ 糾之森 ➔ 河合神社", addr: "下鴨神社", stay: "1.2hr", guide: "京都最古老神社。河合神社（鏡繪馬）推薦姊姊，長輩可漫步糾之森。" },
+            {
+                trans: [
+                    { type: "🚌", text: "<b>公車</b>：205 號直達京都駅(45min)。", addr: "京都駅" },
+                    { type: "🚕", text: "<b>計程車 (建議)</b>：直達 AEON Mall 門口 30min，3,200円。", addr: "AEON MALL KYOTO" }
+                ]
+            },
+            { time: "17:30", title: "🛍️ AEON MALL KYOTO 逛街", addr: "AEON MALL KYOTO", stay: "3hr", guide: "4位成人可分頭行動。重點：WorkmanGirl、無印良品、UNIQLO、超市。" },
+            { time: "19:30", title: "晚餐：AEON 區域美食", isDining: true, options: [
+                { name: "仙台牛たん 福助", info: "首選：厚切牛舌專家。鹽味調味對母親最安全。", dish: "厚切牛舌定食", addr: "仙台牛たん福助 イオンモールKYOTO店", isPrimary: true },
+                { name: "博多天ぷら たかお", info: "備案：現炸天婦羅，要求沾鹽食用即可避開昆布醬。", dish: "特選天婦羅盛合", addr: "博多天ぷらたかお" },
+		{ name: "YAYOI軒", info: "最後備案：日式家庭餐廳營業至23:00。", dish: "蔬菜炒豬肉定食", addr: "YAYOI軒 京都車站八條口店" }
+            ]}
+        ]
+    },
             3: {
                 title: "古都靈魂：千本鳥居與清水舞台",
                 nodes: [
@@ -746,7 +752,7 @@
                     },
                     { time: "08:45", title: "伏見稻荷大社", addr: "京都市伏見区深草", stay: "1.5hr", guide: "【視覺】千本鳥居。走平緩段即可折返。吉伊卡哇本舖" },
                     { time: "11:30", title: "午餐：伏見稻荷老鋪", isDining: true, options: [
-                        { name: "祢ざめ家 (Nezameya)", info: "首選：豐臣秀吉命名。母親建議點『鹽烤鯖魚』。", dish: "炭烤鰻魚 / 鯖魚壽司", addr: "祢ざめ家", isPrimary: true },
+                        { name: "祢ざめ家 (Nezameya)", info: "鰻魚重 (鰻重 - Unaju)/白燒鰻魚 (鰻白焼き - Shirayaki)/豆皮壽司 (いなり寿司 - Inari-zushi)。", dish: "うなぎ丼 + 鰻白焼き + いなり寿司*7)", addr: "祢ざめ家", isPrimary: true },
                         { name: "道步 (Doppo)", info: "備案 B：精緻京料理。環境舒適，適合長輩休憩。", dish: "京彩箱套餐", addr: "伏見稲荷 京料理 道歩" },
                         { name: "Kendon-ya", info: "備案 C：手打烏龍麵。麵條極美味，人潮較少。", dish: "手打烏龍麵", addr: "けんどん屋" }
                     ]},
@@ -770,8 +776,8 @@
                         ]
                     },
                     { time: "15:30", title: "河原町 / 鴨川散策", stay: "2hr", guide: "【商業區】京都最繁華處。傍晚鴨川吹風很舒服。" },
-                    { time: "18:30", title: "晚餐：京都壽喜燒最高峰", isDining: true, options: [
-                        { name: "三嶋亭 (高島屋店)", info: "首選：極致美味。母親務必點『油燒』避開昆布醬。", dish: "壽喜燒 / 油燒 (Oil-yaki)", addr: "三嶋亭 高島屋京都店", isPrimary: true },
+                    { time: "18:30", title: "晚餐：頂級燒肉體驗已定位 18:00 代碼#112944", isDining: true, options: [
+                        { name: "京の焼肉處 弘", info: "首選：京都燒肉代名詞。點「鹽味」避開昆布醬汁。", dish: "今晚精選拼盤", addr: "京の焼肉処 弘 四条木屋町店", isPrimary: true },
                         { name: "東洋亭 (高島屋店)", info: "備案 B：百年洋食。漢堡排與番茄沙拉是美味保證。", dish: "漢堡排套餐", addr: "グリルキャピタル東洋亭 髙島屋店" },
                         { name: "築地 壽司清", info: "備案 C：高品質壽司。位於百貨內，環境舒適。", dish: "季節握壽司套餐", addr: "築地 寿司清 京都高島屋店" }
                     ]}
