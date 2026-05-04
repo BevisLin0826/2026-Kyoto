@@ -124,6 +124,16 @@
             justify-content: center; 
             gap: 6px;
         }
+	/* 商品連結按鈕樣式 */
+	.link-btn {
+	    display: inline-flex; align-items: center; gap: 5px;
+	    background: #fff0f6; color: #e64980; border: 1px solid #ffdeeb;
+	    padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; margin-top: 8px;
+	}
+	.price-tag {
+	    font-size: 12px; color: #e63946; font-weight: bold; background: #fff5f5;
+	    padding: 2px 6px; border-radius: 4px; margin-left: 5px;
+	}
 
         /* =========================================
            5. 時間軸核心排版
@@ -500,78 +510,132 @@
     </div>
 
     <div id="shopping-modal" class="modal">
-        <span class="close-x" onclick="hideModal('shopping')">✕</span>
-        <h2 style="color:var(--transit); margin-bottom: 25px;">🛍️ 任務清單 & 最佳時機</h2>
-        
-        <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
-            <p><strong>👟 功能性運動鞋 (重點任務)</strong></p>
-            <p style="font-size:13px; color:#666;">時機：Day 4 大阪梅田 (LUCUA / Grand Front)</p>
-            <ul style="font-size:14px; padding-left:20px;">
-                <li>New Balance (9060 涼鞋)</li>
-                <li>HOKA (ORA PRIMO)</li>
-                <li>On (Cloudsurfer Max)</li>
-                <li>TNF (紫標)</li>
-                <li>Workman</li>
-            </ul>
-            <button class="map-btn" onclick="openMap('梅田 LUCUA')">🗺️ 導航至 LUCUA</button>
-            <button class="map-btn" onclick="openMap('New Balance 心齋橋店')">🗺️ 導航至 New Balance 心齋橋店</button>
-            <button class="map-btn" onclick="openMap('THE NORTH FACE+ GRAND FRONT Osaka Store')">🗺️ 導航至 TNF 梅田</button>
-            <button class="map-btn" onclick="openMap('WORKMAN Shose')">🗺️ 導航至 WORKMAN Shose 京都 AEON 3F</button>
-            <button class="map-btn" onclick="openMap('WORKMAN Girl')">🗺️ 導航至 WORKMAN Girl 大阪</button>
-        </div>
+    <span class="close-x" onclick="hideModal('shopping')">✕</span>
+    <h2 style="color:var(--transit); margin-bottom: 25px;">🛍️ 2026 願望清單 (5/4 版)</h2>
 
-        <div class="card" style="margin-bottom:15px; border-left: 5px solid #ff9ff3;">
-            <div class="shop-tag" style="background:#fff0f6; color:#e64980; display:inline-block; padding:2px 8px; border-radius:4px;">✨ IP 泡澡球 & 驚喜禮物</div>
-            <p style="font-size:12px; color:#666; margin-top:5px;">時機：<b>Day 1 新京極藥妝 / Day 4 梅田 Kiddy Land</b></p>
-            <ul style="font-size:14px; padding-left:20px;">
-                <li>母嬰用品</li>
-                <li>泡澡球</li>            	
-            </ul>
-            <button class="map-btn" onclick="openMap('Kiddy Land')">🗺️ 導航至 Kiddy Land</button>
-            <button class="map-btn" onclick="openMap('Akachan Honpo (阿卡將本舖)')">🗺️ 導航至 Akachan</button>
-        </div>    
-        
-        <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
-            <p><strong>👗 生活雜貨</strong></p>
-            <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
-            <ul style="font-size:14px; padding-left:20px;">
-                <li>Uniqlo </li>
-                <li>GU </li>
-                <li>3Coins </li>
-                <li>無印良品 (網布筆筒/精華液)</li>
-                <li>Standard Product</li>
-            </ul>
-            <button class="map-btn" onclick="openMap('Uniqlo')">🗺️ 導航至 Uniqlo</button>
-            <button class="map-btn" onclick="openMap('GU')">🗺️ 導航至 GU</button>
-            <button class="map-btn" onclick="openMap('3Coins')">🗺️ 導航至 3Coins</button>
-            <button class="map-btn" onclick="openMap('無印良品')">🗺️ 導航至 Muji</button>
-            <button class="map-btn" onclick="openMap('StandardProduct')">🗺️ 導航至 StandardProduct</button>
+    <!-- 1. 核心潮流鞋款 -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #3498db;">
+        <p><strong>👟 核心潮流鞋款</strong></p>
+        <div class="guide-box">
+            <strong>On Cloudtilt (冰川灰)</strong> <span class="price-tag">¥23,100</span><br>
+            <button class="link-btn" onclick="window.open('https://www.on.com/ja-jp/products/cloudtilt-m-3me1010/mens/glacier-ice-shoes-3ME10103740')">🔗 商品連結</button>
+            <button class="map-btn" onclick="openMap('KISHISPO 藤井大丸')">📍 京都藤井大丸 6F</button>
         </div>
-            
-        <div class="card" style="margin-bottom:15px; border-left: 5px solid #f39c12;">
-            <p><strong>💊 藥妝與常備藥</strong></p>
-            <p style="font-size:13px; color:#666;">時機：Day 1 新京極 / Day 4 心齋橋</p>
-            <ul style="font-size:14px; padding-left:20px;">
-                <li>エスエス製薬（新エスタック顆粒 (Shin Estac Granules)</li>
-                <li>Wakamoto 若元錠</li>
-                <li>休足時間 (今晚就能用！)</li>
-                <li>合利他命 EX Plus</li>
-            </ul>
-            <button class="map-btn" onclick="openMap('心齋橋')">🗺️ 導航至 心齋橋</button>
-            <button class="map-btn" onclick="openMap('新京極商店街')">🗺️ 導航至新京極</button>
-        </div>	
-
-        <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
-            <p><strong>🍵 必買伴手禮</strong></p>
-            <p style="font-size:13px; color:#666;">時機：Day 5 京都車站 Porta</p>
-            <ul style="font-size:14px; padding-left:20px;">
-                <li>阿闍梨餅 (軟Q紅豆餡)</li>
-                <li>MALEBRANCHE 茶之菓 (抹茶巧克力)</li>
-                <li>小倉山莊 (仙貝)</li>
-            </ul>
-            <button class="map-btn" onclick="openMap('京都駅 Porta')">🗺️ 導航至京都駅 Porta</button>
+        <div class="guide-box">
+            <strong>Onitsuka Tiger Mexico 66 Kids</strong> <span class="price-tag">¥8,800+</span><br>
+            <button class="link-btn" onclick="window.open('https://www.onitsukatiger.com/jp/ja-jp/catalogsearch/result/?q=mexico-66-kids-sandal')">🔗 商品連結</button>
+           <button class="map-btn" onclick="openMap('Onitsuka Tiger Kyoto')">Onitsuka Tiger Kyoto</button>
+           <button class="map-btn" onclick="openMap('Onitsuka Tiger 大阪心齋橋店')">Onitsuka Tiger 大阪心齋橋店</button>
+        </div>
+        <div class="guide-box">
+            <strong>NB 9060 Summer (日本限定)</strong> <span class="price-tag">¥19,800</span><br>
+            <button class="link-btn" onclick="window.open('https://shop.newbalance.jp/pd/U9060SV1_LI-FTW-821051.html?dwvar_U9060SV1__LI-FTW-821051_style=U90603FA#dwvar_U9060SV1__LI-FTW-821051_style=U90603FA&dwvar_U9060SV1__LI-FTW-821051_width=D&pid=U9060-3FA-JP&quantity=1')">🔗 商品連結</button>
+	    <button class="map-btn" onclick="openMap('ABC-MART')">ABC-MART</button>
+	    <button class="map-btn" onclick="openMap('New Balance')">New Balance</button>
         </div>
     </div>
+
+    <!-- 2. 機能服飾與專業配件 -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #2ecc71;">
+        <p><strong>🧥 機能服飾與專業配件</strong></p>
+        <div class="guide-box">
+            <strong>Workman XShelter 斷熱外套</strong> <span class="price-tag">¥3,900</span><br>
+            <button class="link-btn" onclick="window.open('https://workman.jp/shop/g/g2300067876036/')">🔗 男款商品連結</button>
+            <button class="link-btn" onclick="window.open('https://workman.jp/shop/g/g2300044174223/')">🔗 女款商品連結</button>
+            <button class="map-btn" onclick="openMap('Workman Girl Aeon Mall KYOTO')">📍 Day 2 Aeon Mall</button>
+        </div>
+        <div class="guide-box">
+            <strong>Ashimura 半鞋墊 (藍綠色)</strong> <span class="price-tag">¥1,100</span><br>
+            <button class="link-btn" onclick="window.open('https://www.amazon.co.jp/dp/B09RF5TNN7?ref_=ast_sto_dp')">🔗 橘色/藍綠色款</button>
+        </div>
+    </div>
+
+    <!-- 3. 無印良品 (獨立分類) -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #7f8c8d;">
+        <p><strong>🌿 無印良品 (MUJI)</strong></p>
+        <div class="guide-box">
+            <strong>發酵美容導入液 (100ml)</strong> <span class="price-tag">¥4,990</span><br>
+            <button class="link-btn" onclick="window.open('https://www.muji.com/jp/ja/store/cmdty/detail/4550584935930')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>免水洗鞋用慕斯</strong> <span class="price-tag">¥790</span><br>
+            <button class="link-btn" onclick="window.open('https://www.muji.com/jp/ja/store/cmdty/detail/4550583500474')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>尼龍網眼縱橫兩用筆袋</strong> <span class="price-tag">¥590</span><br>
+            <button class="link-btn" onclick="window.open('https://www.muji.com/jp/ja/store/cmdty/detail/4550583767235')">🔗 商品連結</button>
+        </div>
+        <button class="map-btn" onclick="openMap('無印良品 京都波爾塔')">📍 時機：Day 5 京都 Porta</button>
+    </div>
+
+    <!-- 4. 藥妝 (獨立分類) -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #e74c3c;">
+        <p><strong>💊 藥妝 (Pharmacy)</strong></p>
+        <div class="guide-box">
+            <strong>白兔製藥 新エスタック顆粒 (40包)</strong> <span class="price-tag">¥2,480+</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=白兔製藥+新エスタック顆粒')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>MUHI BABY 止癢軟膏 (15g)</strong> <span class="price-tag">¥880+</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=池田模範堂+MUHI+BABY+止癢軟膏')">🔗 商品連結</button>
+        </div>
+        <button class="map-btn" onclick="openMap('心齋橋 藥妝')">📍 時機：Day 1 新京極 / Day 4 心齋橋</button>
+    </div>
+
+    <!-- 5. 3COINS 機能雜貨 -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #f1c40f;">
+        <p><strong>✨ 3COINS 機能雜貨</strong></p>
+        <div class="guide-box">
+            <strong>藍牙標籤機 (主機)</strong> <span class="price-tag">¥3,850</span><br>
+            <button class="link-btn" onclick="window.open('https://www.palcloset.jp/display/item/2523-GHLP-00000/?cl=13&b=3coins&ss=')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>隨身沙拉杯 (Kitinto)</strong> <span class="price-tag">¥550</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=3COINS+隨身沙拉杯')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>自動旋轉藥盒</strong> <span class="price-tag">¥330</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=3COINS+自動旋轉藥盒')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>靜電防止扁梳</strong> <span class="price-tag">¥330</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=3COINS+靜電防止扁梳')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>旅行用壓縮收納袋</strong> <span class="price-tag">¥330+</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=3COINS+旅行用壓縮收納袋')">🔗 商品連結</button>
+        </div>
+	<button class="map-btn" onclick="openMap('3Coins')">📍 時機：Day 2 Aeon Mall</button>
+    </div>
+
+    <!-- 6. 紀念品 (新類別) -->
+    <div class="card" style="margin-bottom:15px; border-left: 5px solid #9b59b6;">
+        <p><strong>🎁 紀念品 (Souvenirs)</strong></p>
+        <div class="guide-box">
+            <strong>Bandai 熱門 IP 泡澡球</strong> <span class="price-tag">¥495+</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=Bandai+泡澡球+入浴劑')">🔗 商品連結</button>
+        <button class="map-btn" onclick="openMap('KIDDY LAND')">📍 Kiddy Land 梅田/京都</button>
+        </div>
+        <div class="guide-box">
+            <strong>Chiikawa 周邊商品</strong> <span class="price-tag">市場價格</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=Chiikawa+周邊商品')">🔗 商品連結</button>
+        <button class="map-btn" onclick="openMap('Chiikawa Land')">📍 Chiikawa Land</button>
+        </div>
+    </div>
+
+    <!-- 7. Lawson × Coleman -->
+    <div class="card" style="margin-bottom:15px; border-left: 50px solid #27ae60;">
+        <p><strong>🏪 Lawson × Coleman 聯名</strong></p>
+        <div class="guide-box">
+            <strong>晴雨兩用自動傘</strong> <span class="price-tag">¥2,980</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=Coleman+Lawson+晴雨兩用自動傘')">🔗 商品連結</button>
+        </div>
+        <div class="guide-box">
+            <strong>防潑水機能雨衣外套</strong> <span class="price-tag">¥3,980</span><br>
+            <button class="link-btn" onclick="window.open('https://www.google.com/search?q=Coleman+Lawson+防潑水機能雨衣外套')">🔗 商品連結</button>
+        </div>
+    </div>
+</div>
 
     <div id="pokemon-modal" class="modal">
         <span class="close-x" onclick="hideModal('pokemon')">✕</span>
